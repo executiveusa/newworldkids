@@ -9,7 +9,15 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
-import Index from "./pages/Index";
+
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import ImpactProjects from "./pages/ImpactProjects";
+import BlockchainTracker from "./pages/BlockchainTracker";
+import AIWorkforce from "./pages/AIWorkforce";
+import Footer from "./components/Footer";
+
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 const queryClient = new QueryClient();
@@ -28,9 +36,19 @@ const App = () => {
           <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
               <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                </Routes>
+                <div className="min-h-screen flex flex-col">
+                  <Navbar />
+                  <main className="flex-grow pt-20">
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/impact-projects" element={<ImpactProjects />} />
+                      <Route path="/blockchain-tracker" element={<BlockchainTracker />} />
+                      <Route path="/ai-workforce" element={<AIWorkforce />} />
+                    </Routes>
+                  </main>
+                  <Footer />
+                </div>
               </BrowserRouter>
             </WalletModalProvider>
           </WalletProvider>
