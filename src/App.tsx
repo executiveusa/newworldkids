@@ -16,6 +16,14 @@ import Dashboard from "./pages/Dashboard";
 import ImpactProjects from "./pages/ImpactProjects";
 import BlockchainTracker from "./pages/BlockchainTracker";
 import AIWorkforce from "./pages/AIWorkforce";
+import DonationPage from "./pages/DonationPage";
+import WalletSetup from "./pages/WalletSetup";
+import NFTReceipt from "./pages/NFTReceipt";
+import LeaderboardCompanies from "./pages/LeaderboardCompanies";
+import LeaderboardHelpers from "./pages/LeaderboardHelpers";
+import SpecialNFTBadges from "./pages/SpecialNFTBadges";
+import ExclusivePerks from "./pages/ExclusivePerks";
+import Animated3DAnimals from "./pages/Animated3DAnimals";
 import Footer from "./components/Footer";
 
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -36,7 +44,7 @@ const App = () => {
           <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
               <BrowserRouter>
-                <div className="min-h-screen flex flex-col">
+                <div className="min-h-screen flex flex-col bg-background">
                   <Navbar />
                   <main className="flex-grow pt-20">
                     <Routes>
@@ -45,6 +53,14 @@ const App = () => {
                       <Route path="/impact-projects" element={<ImpactProjects />} />
                       <Route path="/blockchain-tracker" element={<BlockchainTracker />} />
                       <Route path="/ai-workforce" element={<AIWorkforce />} />
+                      <Route path="/donate" element={<DonationPage />} />
+                      <Route path="/wallet-setup" element={<WalletSetup />} />
+                      <Route path="/nft-receipt" element={<NFTReceipt />} />
+                      <Route path="/leaderboard-companies" element={<LeaderboardCompanies />} />
+                      <Route path="/leaderboard-helpers" element={<LeaderboardHelpers />} />
+                      <Route path="/special-nft-badges" element={<SpecialNFTBadges />} />
+                      <Route path="/exclusive-perks" element={<ExclusivePerks />} />
+                      <Route path="/animated-3d-animals" element={<Animated3DAnimals />} />
                     </Routes>
                   </main>
                   <Footer />
