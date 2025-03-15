@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Info, Bird, Paw, Fish } from 'lucide-react';
+import { Info, Bird, Mouse, Fish } from 'lucide-react';
 
 const Animated3DAnimals = () => {
   return (
@@ -88,7 +87,7 @@ const Animated3DAnimals = () => {
               ) : index % 3 === 0 ? (
                 <Fish className="h-8 w-8 text-[#F2FF44]" />
               ) : (
-                <Paw className="h-8 w-8 text-[#F2FF44]" />
+                <Mouse className="h-8 w-8 text-[#F2FF44]" />
               )}
               <span>{animal}</span>
             </Button>

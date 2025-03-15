@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -6,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Award, Gift, Star, Bird, Rabbit, Paw, Wallet, ChevronRight } from "lucide-react";
+import { Heart, Award, Gift, Star, Bird, Rabbit, Mouse, Wallet, ChevronRight } from "lucide-react";
 
 import DonationProgress from '@/components/donation/DonationProgress';
 import DonationTiers from '@/components/donation/DonationTiers';
@@ -21,7 +20,6 @@ const DonationPage = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<string>("bird");
 
   useEffect(() => {
-    // Calculate progress percentage
     const percentage = (currentAmount / goalAmount) * 100;
     setProgressPercentage(Math.min(percentage, 100));
   }, [currentAmount, goalAmount]);
@@ -29,18 +27,16 @@ const DonationPage = () => {
   const handleDonationSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // For demo purposes, add the donation to the current amount
     const newTotal = currentAmount + donationAmount;
     setCurrentAmount(newTotal);
     
-    // In a real app, you would process the payment and update the blockchain here
     console.log(`Processing donation of $${donationAmount}`);
   };
 
   const animalOptions = [
     { id: "bird", name: "Rainforest Bird", icon: <Bird className="h-6 w-6" /> },
     { id: "rabbit", name: "Savanna Rabbit", icon: <Rabbit className="h-6 w-6" /> },
-    { id: "other", name: "Endangered Species", icon: <Paw className="h-6 w-6" /> },
+    { id: "other", name: "Endangered Species", icon: <Mouse className="h-6 w-6" /> },
   ];
 
   return (
