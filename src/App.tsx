@@ -24,6 +24,7 @@ import LeaderboardHelpers from "./pages/LeaderboardHelpers";
 import SpecialNFTBadges from "./pages/SpecialNFTBadges";
 import ExclusivePerks from "./pages/ExclusivePerks";
 import Animated3DAnimals from "./pages/Animated3DAnimals";
+import Agents from "./pages/Agents"; // Add the new Agents page
 import Footer from "./components/Footer";
 
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -61,6 +62,7 @@ const App = () => {
                       <Route path="/special-nft-badges" element={<SpecialNFTBadges />} />
                       <Route path="/exclusive-perks" element={<ExclusivePerks />} />
                       <Route path="/animated-3d-animals" element={<Animated3DAnimals />} />
+                      <Route path="/agents" element={<Agents />} /> {/* Add the new route */}
                     </Routes>
                   </main>
                   <Footer />

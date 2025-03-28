@@ -30,6 +30,9 @@ const Navbar = () => {
           <Link to="/ai-workforce" className={`${isActive('/ai-workforce')} transition-colors`}>
             AI Workforce
           </Link>
+          <Link to="/agents" className={`${isActive('/agents')} transition-colors`}>
+            AI Agents
+          </Link>
           {connected ? (
             <WalletMultiButton className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] px-4 py-2 rounded-md" />
           ) : (
