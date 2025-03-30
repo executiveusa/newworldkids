@@ -1,120 +1,122 @@
 
-import React from 'react';
-import { Card } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Calendar, User, Tag } from "lucide-react";
+import React, { useState } from 'react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import InteractiveMap from '@/components/InteractiveMap';
-
-// Sample blog posts data
-const blogPosts = [
-  {
-    id: 1,
-    title: "Introduction to Web3 for Kids",
-    excerpt: "Learn how blockchain technology can be taught to children in an engaging and educational way.",
-    date: "May 15, 2024",
-    author: "Sarah Johnson",
-    category: "Education",
-    imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-  },
-  {
-    id: 2,
-    title: "The Future of Blockchain in Educational Systems",
-    excerpt: "Exploring how distributed ledger technology is transforming education for the next generation.",
-    date: "May 10, 2024",
-    author: "Michael Chen",
-    category: "Technology",
-    imageUrl: "https://images.unsplash.com/photo-1639322537228-f710d846310a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80"
-  },
-  {
-    id: 3,
-    title: "How NFTs Can Inspire Creativity in Children",
-    excerpt: "Discover how non-fungible tokens are opening new creative avenues for kids in digital art.",
-    date: "May 5, 2024",
-    author: "Emma Davis",
-    category: "Art & Creativity",
-    imageUrl: "https://images.unsplash.com/photo-1636632520256-7d19511cd71d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
-  },
-  {
-    id: 4,
-    title: "Building Digital Literacy Through Blockchain Games",
-    excerpt: "How gamified blockchain experiences can teach children important digital skills.",
-    date: "April 28, 2024",
-    author: "David Park",
-    category: "Gaming",
-    imageUrl: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80"
-  }
-];
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowRight, Globe, Leaf, Droplets, Zap, Home } from "lucide-react";
+import { Link } from "react-router-dom";
+import LanguageToggle from "@/components/blog/LanguageToggle";
+import { useLanguage } from "@/hooks/useLanguage";
+import BlogChatbot from "@/components/blog/BlogChatbot";
 
 const Blog = () => {
+  const { language, translations } = useLanguage();
+  
   return (
-    <div className="min-h-screen bg-background py-20 px-4">
-      <div className="max-w-7xl mx-auto pt-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-white mb-6 font-archivo brand-gradient">
-            <span className="shimmer-effect">Our Blog</span>
-          </h1>
-          <p className="text-xl text-white/80 max-w-2xl mx-auto">
-            Insights, stories, and updates from the New World Kids community
-          </p>
-          <Separator className="my-8 bg-white/10 max-w-md mx-auto" />
-        </div>
-
-        {/* Interactive World Map */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-white mb-4 text-center">Our Global Impact</h2>
-          <p className="text-white/80 max-w-2xl mx-auto text-center mb-6">
-            Explore our impact projects around the world. Click on the map pins to learn more.
-          </p>
-          <InteractiveMap />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {blogPosts.map((post) => (
-            <Card key={post.id} className="glass-effect border-0 overflow-hidden hover-lift group cursor-pointer">
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={post.imageUrl} 
-                  alt={post.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-DEFAULT text-white">
-                    {post.category}
-                  </span>
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 font-archivo">
-                  {post.title}
-                </h3>
-                <p className="text-white/70 mb-4">
-                  {post.excerpt}
-                </p>
-                <div className="flex items-center text-white/60 text-sm">
-                  <div className="flex items-center mr-4">
-                    <Calendar className="h-4 w-4 mr-1" />
-                    <span>{post.date}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <User className="h-4 w-4 mr-1" />
-                    <span>{post.author}</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
+    <div className="container mx-auto px-4 py-12">
+      <div className="mb-8 flex justify-between items-center">
+        <h1 className="text-4xl md:text-5xl font-bold shimmer-effect">
+          {translations.blogTitle}
+        </h1>
+        <LanguageToggle />
+      </div>
+      
+      <div className="mb-12 glass-effect p-6 rounded-xl">
+        <h2 className="text-2xl font-semibold mb-4 shimmer-effect">{translations.whoWeAre.title}</h2>
+        <p className="text-lg text-white/80 mb-6">{translations.whoWeAre.description}</p>
+        
+        <h2 className="text-2xl font-semibold mb-4 shimmer-effect">{translations.whatWeDo.title}</h2>
+        <ul className="list-disc list-inside space-y-2 text-white/80 mb-6">
+          {translations.whatWeDo.items.map((item, index) => (
+            <li key={index} className="text-lg">{item}</li>
           ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <Button className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] px-8 py-6 font-archivo font-bold">
-            View More Articles
-          </Button>
-        </div>
+        </ul>
+        
+        <h2 className="text-2xl font-semibold mb-4 shimmer-effect">{translations.whyWeDoIt.title}</h2>
+        <p className="text-lg text-white/80">{translations.whyWeDoIt.description}</p>
+      </div>
+      
+      <h2 className="text-3xl font-bold mb-6 shimmer-effect">{translations.theBigFour}</h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <BlogCategoryCard 
+          icon={<Leaf className="h-8 w-8 text-[#F2FF44]" />}
+          title={translations.categories.food.title}
+          description={translations.categories.food.description}
+          path="/blog/food"
+        />
+        <BlogCategoryCard 
+          icon={<Droplets className="h-8 w-8 text-[#F2FF44]" />}
+          title={translations.categories.water.title}
+          description={translations.categories.water.description}
+          path="/blog/water"
+        />
+        <BlogCategoryCard 
+          icon={<Zap className="h-8 w-8 text-[#F2FF44]" />}
+          title={translations.categories.energy.title}
+          description={translations.categories.energy.description}
+          path="/blog/energy"
+        />
+        <BlogCategoryCard 
+          icon={<Home className="h-8 w-8 text-[#F2FF44]" />}
+          title={translations.categories.shelter.title}
+          description={translations.categories.shelter.description}
+          path="/blog/shelter"
+        />
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <Card className="glass-effect border-0">
+          <CardHeader>
+            <CardTitle className="shimmer-effect">{translations.automation.title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ul className="list-disc list-inside space-y-2 text-white/80">
+              {translations.automation.items.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+        
+        <Card className="glass-effect border-0">
+          <CardHeader>
+            <CardTitle className="shimmer-effect">{translations.web3Transparency.title}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-white/80 mb-4">{translations.web3Transparency.description}</p>
+            <Button variant="outline" className="border-[#F2FF44] text-[#F2FF44]">
+              {translations.web3Transparency.button}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <div className="fixed bottom-6 right-6 z-50">
+        <BlogChatbot />
       </div>
     </div>
   );
 };
+
+const BlogCategoryCard = ({ icon, title, description, path }) => (
+  <Link to={path}>
+    <Card className="glass-effect border-0 h-full hover-lift">
+      <CardHeader>
+        <div className="mb-4">{icon}</div>
+        <CardTitle className="shimmer-effect">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <CardDescription className="text-white/70">{description}</CardDescription>
+      </CardContent>
+      <CardFooter>
+        <Button variant="ghost" className="text-[#F2FF44] hover:text-[#F2FF44]/80 p-0">
+          Learn More <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </CardFooter>
+    </Card>
+  </Link>
+);
 
 export default Blog;
