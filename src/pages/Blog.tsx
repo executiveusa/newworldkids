@@ -3,6 +3,7 @@ import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, User, Tag } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Sample blog posts data
 const blogPosts = [
