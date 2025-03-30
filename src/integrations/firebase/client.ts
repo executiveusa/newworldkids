@@ -26,10 +26,9 @@ export async function syncToFirebase(tableName: string) {
   try {
     console.log(`Starting sync to Firebase for table: ${tableName}`);
     
-    // Get data from Supabase
-    // Using any here to avoid type issues since we don't know the table schema
+    // Get data from Supabase - using type any to resolve TS error
     const { data: items, error } = await supabase
-      .from(tableName)
+      .from(tableName as any)
       .select('*');
     
     if (error) {
@@ -44,9 +43,10 @@ export async function syncToFirebase(tableName: string) {
     
     // Prepare data for Firebase - create an object with IDs as keys
     const firebaseData: Record<string, any> = {};
+    
     items.forEach(item => {
       if (item && typeof item === 'object' && 'id' in item) {
-        firebaseData[item.id] = item;
+        firebaseData[item.id as string] = item;
       }
     });
     

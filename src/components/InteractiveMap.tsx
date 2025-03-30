@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ReactP5Wrapper } from 'react-p5-wrapper';
 import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 
 type MapPin = {
