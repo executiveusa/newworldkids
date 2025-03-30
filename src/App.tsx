@@ -25,7 +25,8 @@ import SpecialNFTBadges from "./pages/SpecialNFTBadges";
 import ExclusivePerks from "./pages/ExclusivePerks";
 import Animated3DAnimals from "./pages/Animated3DAnimals";
 import Agents from "./pages/Agents";
-import Blog from "./pages/Blog"; // Import the new Blog page
+import Blog from "./pages/Blog";
+import FirebaseSync from "./pages/FirebaseSync"; // Import the new Firebase sync page
 import Footer from "./components/Footer";
 
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -64,7 +65,8 @@ const App = () => {
                       <Route path="/exclusive-perks" element={<ExclusivePerks />} />
                       <Route path="/animated-3d-animals" element={<Animated3DAnimals />} />
                       <Route path="/agents" element={<Agents />} />
-                      <Route path="/blog" element={<Blog />} /> {/* Add the new Blog route */}
+                      <Route path="/blog" element={<Blog />} />
+                      <Route path="/firebase-sync" element={<FirebaseSync />} /> {/* Add the new route */}
                     </Routes>
                   </main>
                   <Footer />
