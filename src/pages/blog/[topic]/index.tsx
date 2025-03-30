@@ -50,9 +50,9 @@ const TopicPage = () => {
       const allPosts = await getFirebaseData('blog_posts');
       if (!allPosts) return [];
       
-      // Convert object to array and filter by topic
+      // Convert object to array and filter by topic - fixed the spread operator issue
       return Object.entries(allPosts)
-        .map(([id, post]) => ({ id, ...post as object } as BlogPost))
+        .map(([id, post]) => ({ id, ...post as Record<string, unknown> } as BlogPost))
         .filter(post => post.topic === topic);
     }
   });

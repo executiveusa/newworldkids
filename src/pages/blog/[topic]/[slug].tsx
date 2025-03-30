@@ -35,9 +35,9 @@ const BlogPostDetail = () => {
       const allPosts = await getFirebaseData('blog_posts');
       if (!allPosts) return null;
       
-      // Convert object to array and find the specific post
+      // Convert object to array and find the specific post - fixed the spread operator issue
       const posts = Object.entries(allPosts)
-        .map(([id, post]) => ({ id, ...post as object } as BlogPost))
+        .map(([id, post]) => ({ id, ...post as Record<string, unknown> } as BlogPost))
         .filter(post => post.topic === topic && post.slug === slug);
       
       return posts.length > 0 ? posts[0] : null;
