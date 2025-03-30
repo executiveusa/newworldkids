@@ -26,7 +26,8 @@ export async function syncToFirebase(tableName: string) {
   try {
     console.log(`Starting sync to Firebase for table: ${tableName}`);
     
-    // Get data from Supabase - using type any to resolve TS error
+    // Use type assertion to handle the dynamic table name
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: items, error } = await supabase
       .from(tableName as any)
       .select('*');
@@ -44,7 +45,8 @@ export async function syncToFirebase(tableName: string) {
     // Prepare data for Firebase - create an object with IDs as keys
     const firebaseData: Record<string, any> = {};
     
-    items.forEach(item => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    items.forEach((item: any) => {
       if (item && typeof item === 'object' && 'id' in item) {
         firebaseData[item.id as string] = item;
       }
