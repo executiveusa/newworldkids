@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, get, set, onValue } from 'firebase/database';
 import { supabase } from '../supabase/client';
+import { PostgrestError } from '@supabase/supabase-js';
 
 // Firebase configuration
 // TODO: Replace with actual Firebase config
@@ -20,17 +21,31 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 /**
+ * Type-safe generic function to fetch data from any Supabase table
+ */
+async function fetchFromSupabase<T>(tableName: string): Promise<{
+  data: T[] | null;
+  error: PostgrestError | null;
+}> {
+  // Use the any type for the from() call to bypass TypeScript's table restrictions
+  // This is necessary because we're using dynamic table names
+  return await supabase
+    .from(tableName as any)
+    .select('*') as unknown as Promise<{
+      data: T[] | null;
+      error: PostgrestError | null;
+    }>;
+}
+
+/**
  * Sync data from Supabase to Firebase for a specific table
  */
 export async function syncToFirebase(tableName: string) {
   try {
     console.log(`Starting sync to Firebase for table: ${tableName}`);
     
-    // Instead of using type assertion, use the more generic query method
-    // that avoids TypeScript errors with dynamic table names
-    const { data: items, error } = await supabase
-      .from(tableName)
-      .select('*') as { data: any[] | null; error: any };
+    // Use our generic helper function to fetch data
+    const { data: items, error } = await fetchFromSupabase(tableName);
     
     if (error) {
       console.error(`Error fetching from Supabase: ${error.message}`);
