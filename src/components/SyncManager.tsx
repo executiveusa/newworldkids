@@ -1,258 +1,228 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { RefreshCcw, Play, Pause, Clock, Database, AlertCircle } from "lucide-react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { useToast } from "@/hooks/use-toast";
-import { PlayCircle, PauseCircle, RefreshCw, AlertCircle, CheckCircle } from "lucide-react";
-import syncScheduler from '@/utils/syncScheduler';
-import { syncToFirebase } from '@/integrations/firebase/client';
+import syncScheduler from "@/utils/syncScheduler";
 
-type SyncJobStatus = {
-  id: string;
-  table: string;
-  isRunning: boolean;
-  lastRun: Date | null;
-  interval: number;
-};
-
-type SyncResult = {
-  success: boolean;
-  message: string;
-  count: number;
-};
-
-const DEFAULT_TABLES = ['blogPosts', 'users', 'donations'];
-
-const SyncManager = () => {
-  const [jobs, setJobs] = useState<SyncJobStatus[]>([]);
-  const [newJobTable, setNewJobTable] = useState('');
-  const [newJobInterval, setNewJobInterval] = useState(15);
-  const [syncResults, setSyncResults] = useState<Record<string, SyncResult | null>>({});
-  const [isLoading, setIsLoading] = useState<Record<string, boolean>>({});
+const SyncManager: React.FC = () => {
+  const [tables, setTables] = useState<string[]>([]);
+  const [newTable, setNewTable] = useState("");
+  const [interval, setInterval] = useState(15); // 15 minutes default
+  const [jobs, setJobs] = useState<any[]>([]);
+  const [syncing, setSyncing] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
 
+  // Load existing jobs on component mount
   useEffect(() => {
-    // Initialize with some default jobs if none exist
-    if (syncScheduler.getAllJobs().length === 0) {
-      DEFAULT_TABLES.forEach(table => {
-        syncScheduler.addJob(table, table, 15);
-      });
-    }
-    
-    // Update the jobs state
-    updateJobsList();
-    
-    // Set interval to refresh job statuses
-    const intervalId = setInterval(updateJobsList, 5000);
-    return () => clearInterval(intervalId);
+    refreshJobs();
   }, []);
 
-  const updateJobsList = () => {
-    setJobs(syncScheduler.getAllJobs());
+  const refreshJobs = () => {
+    const currentJobs = syncScheduler.getAllJobs();
+    setJobs(currentJobs);
   };
 
-  const handleAddJob = () => {
-    if (!newJobTable.trim()) {
+  const handleAddTable = () => {
+    if (!newTable.trim()) {
       toast({
         title: "Error",
         description: "Please enter a table name",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
-    const jobId = `job_${Date.now()}`;
-    syncScheduler.addJob(jobId, newJobTable.trim(), newJobInterval);
-    updateJobsList();
+    // Check if the table is already added
+    if (tables.includes(newTable)) {
+      toast({
+        title: "Error",
+        description: `Table "${newTable}" is already added`,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Add the table to the list
+    setTables([...tables, newTable]);
+    
+    // Add a sync job for this table
+    const jobId = `sync-${newTable}`;
+    syncScheduler.addJob(jobId, newTable, interval);
+    setNewTable("");
+    refreshJobs();
     
     toast({
-      title: "Success",
-      description: `Added new sync job for table ${newJobTable}`,
+      title: "Table Added",
+      description: `Added "${newTable}" to sync list`,
     });
-    
-    setNewJobTable('');
   };
 
-  const handleToggleJob = (jobId: string, isRunning: boolean) => {
+  const toggleSync = (jobId: string, isRunning: boolean) => {
     if (isRunning) {
       syncScheduler.stopJob(jobId);
+      toast({
+        title: "Sync Stopped",
+        description: `Stopped sync for ${jobId.replace('sync-', '')}`,
+      });
     } else {
       syncScheduler.startJob(jobId);
+      toast({
+        title: "Sync Started",
+        description: `Started sync for ${jobId.replace('sync-', '')}`,
+      });
     }
-    updateJobsList();
-    
-    toast({
-      title: isRunning ? "Job Stopped" : "Job Started",
-      description: `Sync job ${isRunning ? 'stopped' : 'started'} successfully`,
-    });
+    refreshJobs();
   };
 
-  const handleManualSync = async (jobId: string, table: string) => {
-    setIsLoading(prev => ({ ...prev, [jobId]: true }));
-    setSyncResults(prev => ({ ...prev, [jobId]: null }));
+  const handleManualSync = async (jobId: string) => {
+    setSyncing(prev => ({ ...prev, [jobId]: true }));
     
     try {
       const result = await syncScheduler.manualSync(jobId);
-      setSyncResults(prev => ({ ...prev, [jobId]: result }));
-      
       toast({
-        title: result.success ? "Sync Successful" : "Sync Failed",
+        title: result.success ? "Sync Complete" : "Sync Failed",
         description: result.message,
         variant: result.success ? "default" : "destructive",
       });
     } catch (error) {
-      setSyncResults(prev => ({ 
-        ...prev, 
-        [jobId]: { 
-          success: false, 
-          message: String(error), 
-          count: 0 
-        } 
-      }));
-      
       toast({
         title: "Sync Error",
         description: String(error),
         variant: "destructive",
       });
     } finally {
-      setIsLoading(prev => ({ ...prev, [jobId]: false }));
-      updateJobsList();
+      setSyncing(prev => ({ ...prev, [jobId]: false }));
+      refreshJobs();
     }
   };
 
-  const formatLastRun = (date: Date | null) => {
-    if (!date) return 'Never';
-    return new Date(date).toLocaleString();
-  };
-
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8 text-white">Firebase Sync Manager</h1>
-      
-      <Card className="mb-8 glass-effect border-0">
+    <div className="space-y-8">
+      <Card className="glass-effect">
         <CardHeader>
-          <CardTitle>Add New Sync Job</CardTitle>
-          <CardDescription>Configure a new database table to sync to Firebase</CardDescription>
+          <CardTitle className="flex items-center gap-2">
+            <Database className="h-5 w-5 text-[#F2FF44]" />
+            Add Table to Sync
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="table-name">Table Name</Label>
-                <Input 
-                  id="table-name" 
-                  value={newJobTable} 
-                  onChange={(e) => setNewJobTable(e.target.value)}
-                  placeholder="e.g. users, posts, etc."
-                />
-              </div>
-              <div>
-                <Label htmlFor="sync-interval">Sync Interval (minutes)</Label>
-                <Input 
-                  id="sync-interval" 
-                  type="number" 
-                  min={1}
-                  value={newJobInterval} 
-                  onChange={(e) => setNewJobInterval(Number(e.target.value))}
-                />
-              </div>
+          <div className="flex flex-col md:flex-row gap-4">
+            <Input
+              placeholder="Enter table name"
+              value={newTable}
+              onChange={(e) => setNewTable(e.target.value)}
+              className="flex-grow"
+            />
+            <div className="flex items-center gap-2">
+              <Input
+                type="number"
+                min={1}
+                max={60}
+                value={interval}
+                onChange={(e) => setInterval(Number(e.target.value))}
+                className="w-20"
+              />
+              <span className="text-sm text-white/70 whitespace-nowrap">minutes</span>
             </div>
+            <Button onClick={handleAddTable}>Add Table</Button>
           </div>
         </CardContent>
-        <CardFooter>
-          <Button onClick={handleAddJob}>Add Sync Job</Button>
-        </CardFooter>
       </Card>
 
-      <h2 className="text-2xl font-bold mt-8 mb-4 text-white">Active Sync Jobs</h2>
-      
       {jobs.length === 0 ? (
         <Alert>
           <AlertCircle className="h-4 w-4" />
-          <AlertTitle>No sync jobs</AlertTitle>
+          <AlertTitle>No sync jobs configured</AlertTitle>
           <AlertDescription>
-            Add a new sync job to start syncing data to Firebase.
+            Add a table above to start syncing data between Supabase and Firebase.
           </AlertDescription>
         </Alert>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid gap-4">
           {jobs.map((job) => (
-            <Card key={job.id} className="glass-effect border-0">
-              <CardHeader>
+            <Card key={job.id} className="overflow-hidden">
+              <CardHeader className="pb-2">
                 <div className="flex justify-between items-center">
-                  <CardTitle className="text-xl">{job.table}</CardTitle>
-                  <div className="flex items-center space-x-2">
-                    {job.isRunning ? (
-                      <div className="flex items-center text-green-500">
-                        <div className="h-2 w-2 rounded-full bg-green-500 mr-2 animate-pulse"></div>
-                        Active
-                      </div>
-                    ) : (
-                      <div className="flex items-center text-gray-500">
-                        <div className="h-2 w-2 rounded-full bg-gray-500 mr-2"></div>
-                        Inactive
-                      </div>
-                    )}
-                  </div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Database className="h-5 w-5 text-[#F2FF44]" />
+                    {job.table}
+                  </CardTitle>
+                  <Badge variant={job.isRunning ? "default" : "outline"}>
+                    {job.isRunning ? "Active" : "Inactive"}
+                  </Badge>
                 </div>
-                <CardDescription>
-                  Sync interval: {job.interval} minutes | Last run: {formatLastRun(job.lastRun)}
-                </CardDescription>
               </CardHeader>
               <CardContent>
-                {syncResults[job.id] && (
-                  <Alert className={syncResults[job.id]?.success ? "bg-green-100 text-green-800 border-green-200" : "bg-red-100 text-red-800 border-red-200"}>
-                    {syncResults[job.id]?.success ? (
-                      <CheckCircle className="h-4 w-4" />
-                    ) : (
-                      <AlertCircle className="h-4 w-4" />
-                    )}
-                    <AlertTitle>
-                      {syncResults[job.id]?.success ? "Sync Successful" : "Sync Failed"}
-                    </AlertTitle>
-                    <AlertDescription>
-                      {syncResults[job.id]?.message}
-                      {syncResults[job.id]?.success && ` (${syncResults[job.id]?.count} records)`}
-                    </AlertDescription>
-                  </Alert>
-                )}
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button 
-                  variant="outline" 
-                  onClick={() => handleToggleJob(job.id, job.isRunning)}
-                >
-                  {job.isRunning ? (
-                    <>
-                      <PauseCircle className="mr-2 h-4 w-4" />
-                      Stop Sync
-                    </>
-                  ) : (
-                    <>
-                      <PlayCircle className="mr-2 h-4 w-4" />
-                      Start Sync
-                    </>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 text-sm text-white/70">
+                    <Clock className="h-4 w-4" />
+                    <span>
+                      {job.isRunning 
+                        ? `Syncs every ${job.interval} minutes` 
+                        : `Will sync every ${job.interval} minutes when active`}
+                    </span>
+                  </div>
+                  
+                  {job.lastRun && (
+                    <div className="text-sm">
+                      Last sync: {new Date(job.lastRun).toLocaleString()}
+                    </div>
                   )}
-                </Button>
-                <Button 
-                  variant="default"
-                  onClick={() => handleManualSync(job.id, job.table)}
-                  disabled={isLoading[job.id]}
-                >
-                  <RefreshCw className={`mr-2 h-4 w-4 ${isLoading[job.id] ? 'animate-spin' : ''}`} />
-                  Sync Now
-                </Button>
-              </CardFooter>
+                  
+                  <div className="flex gap-2">
+                    <Button 
+                      variant={job.isRunning ? "destructive" : "default"}
+                      onClick={() => toggleSync(job.id, job.isRunning)}
+                    >
+                      {job.isRunning ? (
+                        <>
+                          <Pause className="mr-2 h-4 w-4" />
+                          Stop
+                        </>
+                      ) : (
+                        <>
+                          <Play className="mr-2 h-4 w-4" />
+                          Start
+                        </>
+                      )}
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      onClick={() => handleManualSync(job.id)}
+                      disabled={syncing[job.id]}
+                    >
+                      <RefreshCcw className={`mr-2 h-4 w-4 ${syncing[job.id] ? 'animate-spin' : ''}`} />
+                      Sync Now
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
             </Card>
           ))}
         </div>
       )}
+
+      <div className="p-6 rounded-lg bg-white/5 backdrop-blur border border-white/10">
+        <div className="text-center">
+          <h3 className="text-xl font-semibold mb-2">Firebase Sync Configuration</h3>
+          <p className="text-white/70 text-sm mb-4">
+            Ensure your Firebase configuration is set in your environment variables for this feature to work properly.
+          </p>
+          <div className="aspect-w-16 aspect-h-9 max-w-md mx-auto">
+            <AspectRatio ratio={16 / 9}>
+              <div className="h-full w-full flex items-center justify-center bg-black/30 rounded-lg">
+                <Database className="h-12 w-12 text-[#F2FF44]" />
+              </div>
+            </AspectRatio>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

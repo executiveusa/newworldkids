@@ -1,98 +1,90 @@
 
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get, set, update } from 'firebase/database';
-import { supabase } from '@/integrations/supabase/client';
+import { getDatabase, ref, get, set, onValue } from 'firebase/database';
+import { supabase } from '../supabase/client';
 
-// Firebase configuration - in a real project, use environment variables
+// Firebase configuration
+// TODO: Replace with actual Firebase config
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "placeholder-api-key",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "placeholder-domain.firebaseapp.com",
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL || "https://placeholder-db.firebaseio.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "placeholder-project",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "placeholder-bucket.appspot.com",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:123456789:web:abcdef123456789"
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-const firebaseDB = getDatabase(firebaseApp);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-// Utility for logging
-function log(message: string) {
-  console.log(`[SYNC LOG]: ${new Date().toISOString()} - ${message}`);
-}
-
-// Retry mechanism
-async function withRetry(fn: Function, retries = 3) {
-  for (let i = 0; i < retries; i++) {
-    try {
-      return await fn();
-    } catch (err) {
-      log(`Retry ${i + 1} failed. ${err}`);
-      if (i === retries - 1) throw err;
-    }
-  }
-  throw new Error('Max retry attempts reached');
-}
-
-// Sync data from Supabase to Firebase
-export async function syncToFirebase(table: string) {
+/**
+ * Sync data from Supabase to Firebase for a specific table
+ */
+export async function syncToFirebase(tableName: string) {
   try {
-    log(`Starting sync from Supabase to Firebase for table: ${table}`);
+    console.log(`Starting sync to Firebase for table: ${tableName}`);
     
-    const { data, error } = await supabase.from(table).select('*');
+    // Get data from Supabase
+    // Using any here to avoid type issues since we don't know the table schema
+    const { data: items, error } = await supabase
+      .from(tableName)
+      .select('*');
     
-    if (error) throw error;
-    if (!data || data.length === 0) {
-      log('No data found in Supabase to sync');
-      return { success: true, message: 'No data to sync', count: 0 };
+    if (error) {
+      console.error(`Error fetching from Supabase: ${error.message}`);
+      return { success: false, message: error.message, count: 0 };
     }
     
-    // Convert array to object with ID as keys for Firebase
-    const dataObject = data.reduce((acc, item) => {
-      acc[item.id] = { ...item, updated_at: new Date().toISOString() };
-      return acc;
-    }, {});
+    if (!items || items.length === 0) {
+      console.log(`No data found in table ${tableName}`);
+      return { success: true, message: `No data found in table ${tableName}`, count: 0 };
+    }
     
-    await withRetry(() => set(ref(firebaseDB, table), dataObject));
+    // Prepare data for Firebase - create an object with IDs as keys
+    const firebaseData: Record<string, any> = {};
+    items.forEach(item => {
+      if (item && typeof item === 'object' && 'id' in item) {
+        firebaseData[item.id] = item;
+      }
+    });
     
-    log(`Successfully synced ${data.length} records to Firebase`);
-    return { 
-      success: true, 
-      message: `Successfully synced ${data.length} records to Firebase`, 
-      count: data.length 
-    };
+    // Save to Firebase
+    const tableRef = ref(database, tableName);
+    await set(tableRef, firebaseData);
+    
+    console.log(`Successfully synced ${items.length} items to Firebase for table: ${tableName}`);
+    return { success: true, message: `Synced ${items.length} items`, count: items.length };
   } catch (error) {
-    log(`Error syncing to Firebase: ${error}`);
-    return { 
-      success: false, 
-      message: `Error syncing to Firebase: ${error}`, 
-      count: 0 
-    };
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`Error syncing to Firebase: ${errorMessage}`);
+    return { success: false, message: errorMessage, count: 0 };
   }
 }
 
-// Get data from Firebase
-export async function getFirebaseData(path: string) {
+/**
+ * Listen for real-time updates from Firebase for a specific table
+ */
+export function listenToFirebase(tableName: string, callback: (data: any) => void) {
+  const tableRef = ref(database, tableName);
+  
+  onValue(tableRef, (snapshot) => {
+    const data = snapshot.val();
+    callback(data);
+  });
+}
+
+/**
+ * Get current data from Firebase for a specific table
+ */
+export async function getFirebaseData(tableName: string) {
   try {
-    const snapshot = await get(ref(firebaseDB, path));
-    return { data: snapshot.val(), error: null };
+    const tableRef = ref(database, tableName);
+    const snapshot = await get(tableRef);
+    return snapshot.val();
   } catch (error) {
-    log(`Error fetching from Firebase: ${error}`);
-    return { data: null, error };
+    console.error(`Error getting Firebase data: ${error}`);
+    throw error;
   }
 }
-
-// Update specific record in Firebase
-export async function updateFirebaseRecord(path: string, data: any) {
-  try {
-    await withRetry(() => update(ref(firebaseDB, path), data));
-    return { success: true, error: null };
-  } catch (error) {
-    log(`Error updating Firebase: ${error}`);
-    return { success: false, error };
-  }
-}
-
-export { firebaseDB };
