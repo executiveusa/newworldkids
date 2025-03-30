@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Menu, X, LogIn } from "lucide-react";
 import { useWallet } from '@solana/wallet-adapter-react';
@@ -22,8 +21,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 bg-background/80 backdrop-blur-lg">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link to="/" className="logo-container shimmer-effect">
-          <img src="/lovable-uploads/4823bdad-1a9d-436f-ba7f-01d3f8ff40cb.png" alt="New World Kids Logo" className="logo-image" />
+        <Link to="/" className="shimmer-effect">
           <span className="text-2xl font-black text-white font-archivo brand-gradient">New World Kids</span>
         </Link>
         
