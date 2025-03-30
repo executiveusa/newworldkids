@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, User, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import InteractiveMap from '@/components/InteractiveMap';
 
 // Sample blog posts data
 const blogPosts = [
@@ -57,6 +58,15 @@ const Blog = () => {
             Insights, stories, and updates from the New World Kids community
           </p>
           <Separator className="my-8 bg-white/10 max-w-md mx-auto" />
+        </div>
+
+        {/* Interactive World Map */}
+        <div className="mb-16">
+          <h2 className="text-2xl font-bold text-white mb-4 text-center">Our Global Impact</h2>
+          <p className="text-white/80 max-w-2xl mx-auto text-center mb-6">
+            Explore our impact projects around the world. Click on the map pins to learn more.
+          </p>
+          <InteractiveMap />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
