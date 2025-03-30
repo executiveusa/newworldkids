@@ -31,6 +31,8 @@ import Food from "./pages/blog/Food";
 import Water from "./pages/blog/Water";
 import Energy from "./pages/blog/Energy";
 import Shelter from "./pages/blog/Shelter";
+import TopicPage from "./pages/blog/[topic]/index";
+import BlogPostDetail from "./pages/blog/[topic]/[slug]";
 import FirebaseSync from "./pages/FirebaseSync";
 import Footer from "./components/Footer";
 
@@ -76,6 +78,8 @@ const App = () => {
                         <Route path="/blog/water" element={<Water />} />
                         <Route path="/blog/energy" element={<Energy />} />
                         <Route path="/blog/shelter" element={<Shelter />} />
+                        <Route path="/blog/:topic" element={<TopicPage />} />
+                        <Route path="/blog/:topic/:slug" element={<BlogPostDetail />} />
                         <Route path="/firebase-sync" element={<FirebaseSync />} />
                       </Routes>
                     </main>

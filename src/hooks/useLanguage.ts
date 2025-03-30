@@ -58,6 +58,13 @@ const en = {
     title: "AI Assistant",
     description: "Ask me anything about our programs and impact projects.",
     inputPlaceholder: "Type your question here...",
+  },
+  blogPost: {
+    backToCategory: "Back to",
+    readMore: "Read more",
+    publishedOn: "Published on",
+    notFound: "Blog post not found",
+    loading: "Loading blog post..."
   }
 };
 
@@ -118,6 +125,13 @@ const es = {
     title: "Asistente IA",
     description: "Pregúntame cualquier cosa sobre nuestros programas y proyectos de impacto.",
     inputPlaceholder: "Escribe tu pregunta aquí...",
+  },
+  blogPost: {
+    backToCategory: "Volver a",
+    readMore: "Leer más",
+    publishedOn: "Publicado el",
+    notFound: "Entrada de blog no encontrada",
+    loading: "Cargando entrada de blog..."
   }
 };
 
