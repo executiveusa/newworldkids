@@ -27,14 +27,17 @@ async function fetchFromSupabase<T>(tableName: string): Promise<{
   data: T[] | null;
   error: PostgrestError | null;
 }> {
-  // Use the any type for the from() call to bypass TypeScript's table restrictions
-  // This is necessary because we're using dynamic table names
-  return await supabase
-    .from(tableName as any)
-    .select('*') as unknown as Promise<{
-      data: T[] | null;
-      error: PostgrestError | null;
-    }>;
+  // Create a dynamic query with proper type handling
+  const query = supabase.from(tableName);
+  
+  // Execute the query with proper error handling
+  const result = await query.select('*');
+  
+  // Return the properly typed result
+  return result as unknown as Promise<{
+    data: T[] | null;
+    error: PostgrestError | null;
+  }>;
 }
 
 /**
