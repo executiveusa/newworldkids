@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,7 +17,6 @@ const SyncManager: React.FC = () => {
   const [syncing, setSyncing] = useState<Record<string, boolean>>({});
   const { toast } = useToast();
 
-  // Load existing jobs on component mount
   useEffect(() => {
     refreshJobs();
   }, []);
@@ -38,7 +36,6 @@ const SyncManager: React.FC = () => {
       return;
     }
 
-    // Check if the table is already added
     if (tables.includes(newTable)) {
       toast({
         title: "Error",
@@ -48,10 +45,8 @@ const SyncManager: React.FC = () => {
       return;
     }
 
-    // Add the table to the list
     setTables([...tables, newTable]);
     
-    // Add a sync job for this table
     const jobId = `sync-${newTable}`;
     syncScheduler.addJob(jobId, newTable, interval);
     setNewTable("");
@@ -59,7 +54,7 @@ const SyncManager: React.FC = () => {
     
     toast({
       title: "Table Added",
-      description: `Added "${newTable}" to sync list`,
+      description: `Added "${newTable}" to Firebase sync list`,
     });
   };
 
@@ -108,13 +103,13 @@ const SyncManager: React.FC = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Database className="h-5 w-5 text-[#F2FF44]" />
-            Add Table to Sync
+            Add Firebase Collection to Sync
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row gap-4">
             <Input
-              placeholder="Enter table name"
+              placeholder="Enter collection name"
               value={newTable}
               onChange={(e) => setNewTable(e.target.value)}
               className="flex-grow"
@@ -130,7 +125,7 @@ const SyncManager: React.FC = () => {
               />
               <span className="text-sm text-white/70 whitespace-nowrap">minutes</span>
             </div>
-            <Button onClick={handleAddTable}>Add Table</Button>
+            <Button onClick={handleAddTable}>Add Collection</Button>
           </div>
         </CardContent>
       </Card>
@@ -140,7 +135,7 @@ const SyncManager: React.FC = () => {
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>No sync jobs configured</AlertTitle>
           <AlertDescription>
-            Add a table above to start syncing data between Supabase and Firebase.
+            Add a collection above to start syncing data with Firebase.
           </AlertDescription>
         </Alert>
       ) : (

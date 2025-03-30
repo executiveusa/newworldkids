@@ -1,5 +1,5 @@
 
-import { syncToFirebase } from '@/integrations/firebase/client';
+import { syncToFirebase, getFirebaseData } from '@/integrations/firebase/client';
 
 type SyncJob = {
   id: string;
@@ -72,8 +72,18 @@ class SyncScheduler {
 
   private async runJob(job: SyncJob) {
     try {
-      console.log(`Running sync job for table: ${job.table}`);
-      const result = await syncToFirebase(job.table);
+      console.log(`Running sync job for collection: ${job.table}`);
+      // Get existing data from Firebase to sync/update
+      const existingData = await getFirebaseData(job.table);
+      
+      // Convert existing data to array if needed
+      let dataArray = [];
+      if (existingData) {
+        // If data exists in Firebase, use it
+        dataArray = Object.values(existingData);
+      }
+      
+      const result = await syncToFirebase(job.table, dataArray);
       job.lastRun = new Date();
       console.log(`Sync completed for ${job.table}:`, result);
       return result;

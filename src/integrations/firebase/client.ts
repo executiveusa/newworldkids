@@ -1,8 +1,6 @@
 
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, get, set, onValue } from 'firebase/database';
-import { supabase } from '../supabase/client';
-import { PostgrestError } from '@supabase/supabase-js';
 
 // Firebase configuration
 // TODO: Replace with actual Firebase config
@@ -21,48 +19,22 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
 /**
- * Type-safe generic function to fetch data from any Supabase table
+ * Sync data to Firebase for a specific table/collection
  */
-async function fetchFromSupabase<T>(tableName: string): Promise<{
-  data: T[] | null;
-  error: PostgrestError | null;
-}> {
-  // Use type assertion to bypass TypeScript's strict table checking
-  // This is necessary because we're using dynamic table names
-  const { data, error } = await (supabase as any)
-    .from(tableName)
-    .select('*');
-  
-  return { data, error } as {
-    data: T[] | null;
-    error: PostgrestError | null;
-  };
-}
-
-/**
- * Sync data from Supabase to Firebase for a specific table
- */
-export async function syncToFirebase(tableName: string) {
+export async function syncToFirebase(tableName: string, data?: any[]) {
   try {
     console.log(`Starting sync to Firebase for table: ${tableName}`);
     
-    // Use our generic helper function to fetch data
-    const { data: items, error } = await fetchFromSupabase(tableName);
-    
-    if (error) {
-      console.error(`Error fetching from Supabase: ${error.message}`);
-      return { success: false, message: error.message, count: 0 };
-    }
-    
-    if (!items || items.length === 0) {
-      console.log(`No data found in table ${tableName}`);
-      return { success: true, message: `No data found in table ${tableName}`, count: 0 };
+    // If no data is provided, we can't sync anything
+    if (!data || data.length === 0) {
+      console.log(`No data provided for table ${tableName}`);
+      return { success: true, message: `No data provided for table ${tableName}`, count: 0 };
     }
     
     // Prepare data for Firebase - create an object with IDs as keys
     const firebaseData: Record<string, any> = {};
     
-    items.forEach((item: any) => {
+    data.forEach((item: any) => {
       if (item && typeof item === 'object' && 'id' in item) {
         firebaseData[item.id as string] = item;
       }
@@ -72,8 +44,8 @@ export async function syncToFirebase(tableName: string) {
     const tableRef = ref(database, tableName);
     await set(tableRef, firebaseData);
     
-    console.log(`Successfully synced ${items.length} items to Firebase for table: ${tableName}`);
-    return { success: true, message: `Synced ${items.length} items`, count: items.length };
+    console.log(`Successfully synced ${data.length} items to Firebase for table: ${tableName}`);
+    return { success: true, message: `Synced ${data.length} items`, count: data.length };
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(`Error syncing to Firebase: ${errorMessage}`);
