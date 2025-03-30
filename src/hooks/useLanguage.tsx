@@ -1,8 +1,72 @@
 
-import { useState, useEffect, createContext, useContext } from 'react';
+import React, { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+
+// Define types for our translations
+type TranslationsType = {
+  blogTitle: string;
+  whoWeAre: {
+    title: string;
+    description: string;
+  };
+  whatWeDo: {
+    title: string;
+    items: string[];
+  };
+  whyWeDoIt: {
+    title: string;
+    description: string;
+  };
+  theBigFour: string;
+  categories: {
+    food: {
+      title: string;
+      description: string;
+    };
+    water: {
+      title: string;
+      description: string;
+    };
+    energy: {
+      title: string;
+      description: string;
+    };
+    shelter: {
+      title: string;
+      description: string;
+    };
+  };
+  automation: {
+    title: string;
+    items: string[];
+  };
+  web3Transparency: {
+    title: string;
+    description: string;
+    button: string;
+  };
+  chatbot: {
+    title: string;
+    description: string;
+    inputPlaceholder: string;
+  };
+  blogPost: {
+    backToCategory: string;
+    readMore: string;
+    publishedOn: string;
+    notFound: string;
+    loading: string;
+  };
+};
+
+// Define the context type
+type LanguageContextType = {
+  language: string;
+  setLanguage: (lang: string) => void;
+  translations: TranslationsType;
+};
 
 // English translations
-const en = {
+const en: TranslationsType = {
   blogTitle: "Inspiring Solutions. Real Impact.",
   whoWeAre: {
     title: "Who We Are",
@@ -69,7 +133,7 @@ const en = {
 };
 
 // Spanish translations
-const es = {
+const es: TranslationsType = {
   blogTitle: "Soluciones Inspiradoras. Impacto Real.",
   whoWeAre: {
     title: "Quiénes Somos",
@@ -135,13 +199,17 @@ const es = {
   }
 };
 
-// Create context
-const LanguageContext = createContext(null);
+// Create context with proper typing
+const LanguageContext = createContext<LanguageContextType | null>(null);
 
-// Create provider
-export const LanguageProvider = ({ children }) => {
+// Create provider with proper typing for children
+type LanguageProviderProps = {
+  children: ReactNode;
+};
+
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const [language, setLanguage] = useState('en');
-  const [translations, setTranslations] = useState(en);
+  const [translations, setTranslations] = useState<TranslationsType>(en);
   
   useEffect(() => {
     setTranslations(language === 'en' ? en : es);
@@ -154,8 +222,8 @@ export const LanguageProvider = ({ children }) => {
   );
 };
 
-// Create hook
-export const useLanguage = () => {
+// Create hook with proper return type
+export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (!context) {
     throw new Error('useLanguage must be used within a LanguageProvider');
