@@ -9,8 +9,23 @@ import { useQuery } from '@tanstack/react-query';
 import LanguageToggle from '@/components/blog/LanguageToggle';
 import { format } from 'date-fns';
 
+// Define type for blog post
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  topic: string;
+  content?: string;
+  createdAt?: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  author?: string;
+}
+
 const BlogPostDetail = () => {
-  const { topic, slug } = useParams();
+  const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const { translations } = useLanguage();
   
   // Fetch this specific blog post
@@ -22,7 +37,7 @@ const BlogPostDetail = () => {
       
       // Convert object to array and find the specific post
       const posts = Object.entries(allPosts)
-        .map(([id, post]) => ({ id, ...post }))
+        .map(([id, post]) => ({ id, ...post as object } as BlogPost))
         .filter(post => post.topic === topic && post.slug === slug);
       
       return posts.length > 0 ? posts[0] : null;
@@ -30,8 +45,8 @@ const BlogPostDetail = () => {
   });
   
   // Get the category title for the breadcrumb
-  const categoryTitle = topic && translations.categories[topic] 
-    ? translations.categories[topic].title 
+  const categoryTitle = topic && translations.categories[topic as keyof typeof translations.categories] 
+    ? translations.categories[topic as keyof typeof translations.categories].title 
     : topic;
   
   if (isLoading) {
@@ -48,7 +63,7 @@ const BlogPostDetail = () => {
     return (
       <div className="container mx-auto px-4 py-12">
         <div className="glass-effect p-8 rounded-xl">
-          <p className="text-white/80">Error: {error.message}</p>
+          <p className="text-white/80">Error: {(error as Error).message}</p>
         </div>
       </div>
     );

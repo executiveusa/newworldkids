@@ -24,8 +24,23 @@ const getTopicIcon = (topic: string) => {
   }
 };
 
+// Define type for blog post
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  topic: string;
+  content?: string;
+  createdAt?: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  author?: string;
+}
+
 const TopicPage = () => {
-  const { topic } = useParams();
+  const { topic } = useParams<{ topic: string }>();
   const { translations } = useLanguage();
   
   // Fetch blog posts for this topic
@@ -37,18 +52,18 @@ const TopicPage = () => {
       
       // Convert object to array and filter by topic
       return Object.entries(allPosts)
-        .map(([id, post]) => ({ id, ...post }))
+        .map(([id, post]) => ({ id, ...post as object } as BlogPost))
         .filter(post => post.topic === topic);
     }
   });
   
   // Get the correct category translations
-  const categoryTitle = topic && translations.categories[topic] 
-    ? translations.categories[topic].title 
+  const categoryTitle = topic && translations.categories[topic as keyof typeof translations.categories] 
+    ? translations.categories[topic as keyof typeof translations.categories].title 
     : '';
   
-  const categoryDescription = topic && translations.categories[topic]
-    ? translations.categories[topic].description
+  const categoryDescription = topic && translations.categories[topic as keyof typeof translations.categories]
+    ? translations.categories[topic as keyof typeof translations.categories].description
     : '';
   
   return (
@@ -62,7 +77,7 @@ const TopicPage = () => {
       
       <div className="flex items-center mb-8">
         <div className="bg-[#F2FF44]/10 p-3 rounded-full mr-4">
-          {getTopicIcon(topic)}
+          {getTopicIcon(topic || '')}
         </div>
         <h1 className="text-4xl md:text-5xl font-bold shimmer-effect">
           {categoryTitle}
@@ -79,7 +94,7 @@ const TopicPage = () => {
         </div>
       ) : error ? (
         <div className="glass-effect p-8 rounded-xl mb-12">
-          <p className="text-white/80">Error loading posts: {error.message}</p>
+          <p className="text-white/80">Error loading posts: {(error as Error).message}</p>
         </div>
       ) : posts && posts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
