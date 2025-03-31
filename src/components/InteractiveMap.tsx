@@ -5,8 +5,8 @@ import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-const InteractiveMap = () => {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+export default function InteractiveMap() {
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
   const [dimensions, setDimensions] = useState({ width: 1024, height: 450 });
   const [hoveredPin, setHoveredPin] = useState<null | {
     name: string
@@ -59,6 +59,9 @@ const InteractiveMap = () => {
         // Hover detection
         if (p5.dist(p5.mouseX, p5.mouseY, pin.x, pin.y) < 20) {
           setHoveredPin(pin);
+        } else if (hoveredPin && hoveredPin.x === pin.x && hoveredPin.y === pin.y) {
+          // Clear hover state when mouse moves away from the current hovered pin
+          setHoveredPin(null);
         }
       });
     };
@@ -100,6 +103,4 @@ const InteractiveMap = () => {
       </div>
     </div>
   );
-};
-
-export default InteractiveMap;
+}
