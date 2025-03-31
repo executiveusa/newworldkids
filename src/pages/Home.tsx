@@ -17,11 +17,15 @@ const Home = () => {
       
       <div className="container mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold text-center mb-8 shimmer-effect">
-          Our Global Impact Projects
+          Explore Our Global Impact Projects
         </h2>
+        <p className="text-center text-white/70 mb-8 max-w-2xl mx-auto">
+          Interact with our 3D globe to discover where we're making a difference.
+          Click on any marker to learn more about our initiatives.
+        </p>
         <InteractiveMap />
         <div className="text-center mt-4 text-white/70">
-          <p>Click on any pin to explore our impact projects</p>
+          <p>Rotate the globe and click on markers to explore our impact projects</p>
         </div>
       </div>
       
