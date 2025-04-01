@@ -24,7 +24,7 @@ const GlobeTooltip: React.FC<GlobeTooltipProps> = ({ pin, position }) => {
     >
       <h4 className="text-lg font-bold text-white mb-1">{pin.name}</h4>
       <p className="text-sm text-white/80">{pin.description}</p>
-      <div className="text-xs text-brand-light mt-2">Click to explore →</div>
+      <div className="text-xs text-[#F2FF44] mt-2">Click to explore →</div>
     </motion.div>
   );
 };

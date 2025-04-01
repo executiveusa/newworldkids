@@ -7,7 +7,7 @@ import CallToActionSection from '@/components/home/CallToActionSection';
 import InteractiveMap from '@/components/InteractiveMap';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Globe2 } from 'lucide-react';
 
 const Home = () => {
   return (
@@ -15,17 +15,26 @@ const Home = () => {
       <HeroSection />
       <FeaturesSection />
       
-      <div className="container mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-center mb-8 shimmer-effect">
-          Explore Our Global Impact Projects
-        </h2>
-        <p className="text-center text-white/70 mb-8 max-w-2xl mx-auto">
-          Interact with our 3D globe to discover where we're making a difference.
-          Click on any marker to learn more about our initiatives.
-        </p>
+      <div className="container mx-auto px-4 py-16 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/30 pointer-events-none"></div>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center mb-3 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+            <Globe2 className="h-5 w-5 mr-2 text-[#F2FF44]" />
+            <span className="text-white/80 text-sm font-medium">Global Impact</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 shimmer-effect">
+            Explore Our Global Impact Projects
+          </h2>
+          <p className="text-center text-white/70 mb-8 max-w-2xl mx-auto">
+            Interact with our 3D globe to discover where we're making a difference.
+            Click on any marker to learn more about our initiatives.
+          </p>
+        </div>
+        
         <InteractiveMap />
-        <div className="text-center mt-4 text-white/70">
-          <p>Rotate the globe and click on markers to explore our impact projects</p>
+        
+        <div className="text-center mt-6 text-white/70">
+          <p className="text-sm">Rotate the globe and click on markers to explore our impact projects</p>
         </div>
       </div>
       

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MapPin } from '../map/types';
 import { pins } from '../map/mapData';
 import GlobeTooltip from './GlobeTooltip';
+import { useToast } from '@/hooks/use-toast';
 
 const Globe: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +18,7 @@ const Globe: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const globeRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (isMobile) {
@@ -90,7 +92,14 @@ const Globe: React.FC = () => {
             const markerId = event.detail.id;
             const pin = pins.find(p => p.id === markerId);
             if (pin) {
-              navigate(pin.link);
+              toast({
+                title: `Navigating to ${pin.name}`,
+                description: "Loading the impact project details...",
+                duration: 3000,
+              });
+              setTimeout(() => {
+                navigate(pin.link);
+              }, 300);
             }
           });
 
@@ -151,7 +160,7 @@ const Globe: React.FC = () => {
         globeRef.current.innerHTML = '';
       }
     };
-  }, [navigate]);
+  }, [navigate, toast]);
 
   return (
     <div className="relative w-full flex justify-center" ref={containerRef}>
@@ -159,8 +168,11 @@ const Globe: React.FC = () => {
         className="relative w-full max-w-[1024px] h-[450px] md:h-[450px] overflow-hidden rounded-lg shadow-lg glass-effect"
       >
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center z-10 bg-background/80">
-            <div className="text-white">Loading globe...</div>
+          <div className="absolute inset-0 flex items-center justify-center z-10 bg-background/80 backdrop-blur-sm">
+            <div className="text-white flex flex-col items-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white mb-4"></div>
+              <div>Loading globe visualization...</div>
+            </div>
           </div>
         )}
         
