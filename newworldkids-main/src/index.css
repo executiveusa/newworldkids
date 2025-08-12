@@ -1,0 +1,159 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --radius: 1.2rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Archivo', sans-serif;
+  }
+}
+
+.glass-effect {
+  @apply bg-white/5 backdrop-blur-lg border border-white/10;
+}
+
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-effect {
+  @apply relative overflow-hidden;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+.brand-gradient {
+  background: linear-gradient(90deg, #800000, #FF0000);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  height: 40px;
+  margin-right: 8px;
+}
+
+/* Add new shimmer effect for headings */
+.shimmer-effect {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    90deg, 
+    rgba(242, 255, 68, 0), 
+    rgba(242, 255, 68, 0.5), 
+    rgba(242, 255, 68, 0)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: #FFFFFF;
+  animation: shimmer 3s infinite linear;
+}
+
+/* Hero section animated background */
+.hero-animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-animated-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, rgba(242, 255, 68, 0.15), transparent 80%);
+  animation: pulse 8s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+/* Globe visualization styles */
+.globe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.globe-marker {
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.globe-marker:hover {
+  transform: scale(1.2);
+}
+
+/* Glow effect for the globe */
+.globe-glow {
+  filter: drop-shadow(0 0 15px rgba(67, 97, 238, 0.6));
+}
+
+/* Pulse animation for markers */
+@keyframes marker-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.marker-pulse {
+  animation: marker-pulse 2s infinite ease-in-out;
+}
+
+canvas {
+  outline: none;
+}
