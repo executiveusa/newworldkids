@@ -1,71 +1,251 @@
-# Welcome to your GPT Engineer project
+# 🧱 New World Kids - Golden Boilerplate
 
-## Project info
+> **Educational platform for children focused on blockchain technology and conservation**
 
-**URL**: https://run.gptengineer.app/projects/dedf1346-02b9-4baa-9273-6df78b702788/improve
+Successfully transformed from Lovable-generated Vite/React to the Golden Boilerplate architecture (Next.js + Express + Prisma).
 
-## How can I edit this code?
+[![Deploy Backend to Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2Fexecutiveusa%2Fnewworldkids&envs=DATABASE_URL%2CJWT_SECRET%2CFRONTEND_URL&optionalEnvs=FRONTEND_URL&DATABASE_URLDesc=PostgreSQL+connection+string&JWT_SECRETDesc=Secret+key+for+JWT+tokens&FRONTEND_URLDesc=URL+of+your+deployed+frontend&DATABASE_URLDefault=postgresql%3A%2F%2Fuser%3Apass%40host%3Aport%2Fdb&JWT_SECRETDefault=your_super_secret_jwt_key_here&FRONTEND_URLDefault=https%3A%2F%2Fyour-frontend.vercel.app&referralCode=newworldkids)
 
-There are several ways of editing your application.
+## 🏗️ Architecture
 
-**Use GPT Engineer**
+This project uses the **Golden Boilerplate** architecture:
 
-Simply visit the GPT Engineer project at [GPT Engineer](https://gptengineer.app/projects/dedf1346-02b9-4baa-9273-6df78b702788/improve) and start prompting.
+- **Frontend**: Next.js 14 with App Router (deployed to Vercel)
+- **Backend**: Express.js + TypeScript (deployed to Railway)
+- **Database**: PostgreSQL with Prisma ORM (hosted on Railway)
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Authentication**: Solana wallet integration
 
-Changes made via gptengineer.app will be committed automatically to this repo.
+## 🚀 Quick Start
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in the GPT Engineer UI.
+- Node.js 20+ and npm
+- PostgreSQL database (or use Railway for hosting)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Development Setup
 
-Follow these steps:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/executiveusa/newworldkids.git
+   cd newworldkids
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Install dependencies**
+   ```bash
+   npm install --legacy-peer-deps
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Set up environment variables**
+   
+   **Frontend** (`apps/frontend/.env.local`):
+   ```env
+   NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+   NEXT_PUBLIC_SOLANA_NETWORK=mainnet-beta
+   ```
+   
+   **Backend** (`apps/backend/.env`):
+   ```env
+   DATABASE_URL=postgresql://postgres:password@localhost:5432/newworldkids
+   JWT_SECRET=your_development_secret_here
+   FRONTEND_URL=http://localhost:3000
+   PORT=8080
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+4. **Set up the database**
+   ```bash
+   cd apps/backend
+   npm run db:generate
+   npm run db:push
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+5. **Start development servers**
+   
+   **Terminal 1** (Backend):
+   ```bash
+   npm run dev:backend
+   ```
+   
+   **Terminal 2** (Frontend):
+   ```bash
+   npm run dev:frontend
+   ```
+
+6. **Visit the applications**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8080
+   - Health Check: http://localhost:3000/healthz
+
+## 📁 Project Structure
+
+```
+newworldkids/
+├── apps/
+│   ├── frontend/                 # Next.js 14 application
+│   │   ├── app/                 # App Router pages
+│   │   │   ├── page.tsx         # Home page
+│   │   │   ├── healthz/         # Health check page
+│   │   │   └── layout.tsx       # Root layout
+│   │   ├── components/          # React components
+│   │   ├── lib/                 # Utilities
+│   │   └── public/              # Static assets
+│   └── backend/                 # Express + Prisma API
+│       ├── src/
+│       │   ├── index.ts         # Express server
+│       │   └── routes/          # API routes
+│       ├── prisma/
+│       │   └── schema.prisma    # Database schema
+│       ├── Dockerfile           # Container config
+│       └── railway.toml         # Railway deployment
+├── specs/                       # Implementation specifications
+├── .github/workflows/           # CI/CD pipeline
+└── README.md
 ```
 
-**Edit a file directly in GitHub**
+## 🌐 Deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Frontend (Vercel)
 
-**Use GitHub Codespaces**
+1. **Connect your repository to Vercel**
+   - Visit [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Select `apps/frontend` as the root directory
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+2. **Configure environment variables in Vercel dashboard**:
+   ```env
+   NEXT_PUBLIC_API_BASE_URL=https://your-backend.up.railway.app
+   NEXT_PUBLIC_SOLANA_NETWORK=mainnet-beta
+   ```
 
-## What technologies are used for this project?
+3. **Deploy** - Vercel will automatically deploy on every push to main
 
-This project is built with .
+### Backend (Railway)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. **One-click deploy using the button above**, or manually:
+   - Visit [railway.app](https://railway.app)
+   - Create new project from GitHub repository
+   - Select `apps/backend` as the root directory
 
-## How can I deploy this project?
+2. **Configure environment variables in Railway dashboard**:
+   ```env
+   DATABASE_URL=postgresql://user:pass@host:port/db  # Railway auto-provides this
+   JWT_SECRET=your_super_secret_jwt_key_here_replace_in_production
+   FRONTEND_URL=https://your-frontend.vercel.app
+   PORT=8080
+   NODE_ENV=production
+   ```
 
-All GPT Engineer projects can be deployed directly via the GPT Engineer app.
+3. **Railway will automatically**:
+   - Create a PostgreSQL database
+   - Build and deploy your container
+   - Provide HTTPS endpoints
+   - Handle auto-scaling
 
-Simply visit your project at [GPT Engineer](https://gptengineer.app/projects/dedf1346-02b9-4baa-9273-6df78b702788/improve) and click on Share -> Publish.
+## 🔧 Development with VS Code + MCP
 
-## I want to use a custom domain - is that possible?
+This project is optimized for development with VS Code and MCP (Model Context Protocol) servers:
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.gptengineer.app/tips-tricks/custom-domain/)
+1. **Start MCP Gateway**:
+   ```bash
+   npx @anthropic-ai/mcp-server-gateway
+   ```
+
+2. **Add MCP Servers**:
+   - **Vercel MCP Server**: For frontend deployment management
+   - **Railway MCP Server**: For backend deployment management
+
+3. **Keep secrets in platform dashboards** - never commit secrets to code
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+# Frontend tests (when implemented)
+npm run test:frontend
+
+# Backend tests (when implemented)  
+npm run test:backend
+
+# Build both apps
+npm run build
+```
+
+### Health Checks
+- **Frontend Health**: Visit `/healthz` page to check frontend + backend connectivity
+- **Backend Health**: `GET /health` endpoint returns service status
+- **Database Health**: Included in backend health check
+
+## 📊 Features
+
+### Current Features (Migrated from Vite)
+- ✅ **Home Page**: Hero section with educational content
+- ✅ **Blog System**: Dynamic routing for educational topics
+- ✅ **Donation System**: Progress tracking and donor management
+- ✅ **Wallet Integration**: Solana wallet connectivity
+- ✅ **Dashboard**: Impact projects and user data
+- ✅ **Leaderboards**: Companies and helpers ranking
+- ✅ **NFT Badges**: Special achievement tracking
+- ✅ **Multi-language**: Internationalization support
+
+### Golden Boilerplate Additions
+- ✅ **Health Monitoring**: Frontend and backend health checks
+- ✅ **API Documentation**: RESTful API with proper error handling
+- ✅ **Database Migrations**: Prisma-powered schema management
+- ✅ **Containerization**: Docker support for Railway deployment
+- ✅ **CI/CD Pipeline**: Automated testing and deployment
+- ✅ **Type Safety**: End-to-end TypeScript integration
+
+## 🔍 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Backend health check |
+| `GET` | `/api/status` | API status information |
+| `GET` | `/api/blog/posts` | List blog posts *(coming soon)* |
+| `GET` | `/api/donations` | List donations *(coming soon)* |
+| `GET` | `/api/leaderboard` | Leaderboard data *(coming soon)* |
+
+## 🗄️ Database Schema
+
+The Prisma schema includes models for:
+- **BlogPost**: Educational content with topics and slugs
+- **Donation**: Donation tracking with amounts and donors
+- **User**: User profiles with wallet integration
+- **ImpactProject**: Conservation project tracking
+- **NFTBadge**: Special achievement badges
+
+## 🛠️ Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| **Frontend** | Next.js 14, React 18, TypeScript | Server-side rendering, static generation |
+| **Styling** | Tailwind CSS, shadcn/ui | Responsive design, component library |
+| **Backend** | Express.js, TypeScript | RESTful API, middleware |
+| **Database** | PostgreSQL, Prisma ORM | Data persistence, type-safe queries |
+| **Authentication** | Solana Wallets, JWT | Blockchain wallet integration |
+| **Deployment** | Vercel, Railway | Frontend and backend hosting |
+| **CI/CD** | GitHub Actions | Automated testing and deployment |
+
+## 🤝 Contributing
+
+1. **Fork the repository**
+2. **Create feature branch**: `git checkout -b feature/amazing-feature`
+3. **Make changes and test**: `npm run build`
+4. **Commit changes**: `git commit -m 'Add amazing feature'`
+5. **Push to branch**: `git push origin feature/amazing-feature`
+6. **Open Pull Request**
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🌟 Acknowledgments
+
+- **Lovable**: For the original application foundation
+- **BMAD Method**: For structured planning and development
+- **Spec-Kit**: For specification-driven development workflow
+- **Golden Boilerplate**: For the Next.js + Express + Prisma architecture
+
+---
+
+**Built with ❤️ for educating the next generation about blockchain and conservation**
