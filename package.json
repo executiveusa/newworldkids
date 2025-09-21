@@ -1,14 +1,19 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "newworldkids-golden-boilerplate",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "dev": "npm run dev --workspace=apps/frontend",
+    "dev:frontend": "npm run dev --workspace=apps/frontend",
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "build": "npm run build --workspaces",
+    "build:frontend": "npm run build --workspace=apps/frontend",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "lint": "eslint . --ignore-path .gitignore",
+    "start": "npm run start --workspace=apps/backend"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
