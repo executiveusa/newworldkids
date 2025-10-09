@@ -1,14 +1,45 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AgentChat from '@/components/agents/AgentChat';
 import { getAgentDescription } from '@/services/agents/agentService';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { runAgentSelfCheck } from "@/integrations/microsoftAgent";
 
 const Agents = () => {
+  const [status, setStatus] = useState<'pending' | 'online' | 'offline'>('pending');
+  const [statusMessage, setStatusMessage] = useState('Verifying Microsoft Agent framework connection...');
+
+  useEffect(() => {
+    const checkAgent = async () => {
+      const result = await runAgentSelfCheck();
+      if (result) {
+        setStatus('online');
+        setStatusMessage('Microsoft Agent Framework bridge is ready for Lemon AI orchestration.');
+      } else {
+        setStatus('offline');
+        setStatusMessage('Unable to reach Lovable Cloud agent runtime. The UI will fall back to local mocks.');
+      }
+    };
+
+    checkAgent();
+  }, []);
+
+  const statusVariant = status === 'offline' ? 'destructive' : 'default';
+
   return (
     <div className="container mx-auto py-8 px-4">
       <h1 className="text-3xl font-bold text-white mb-8">AI Agents</h1>
-      
+
+      <Alert variant={statusVariant} className="mb-6">
+        <AlertTitle>
+          {status === 'online' && 'Agent runtime connected'}
+          {status === 'offline' && 'Agent runtime offline'}
+          {status === 'pending' && 'Checking agent runtime'}
+        </AlertTitle>
+        <AlertDescription>{statusMessage}</AlertDescription>
+      </Alert>
+
       <Tabs defaultValue="novasign" className="w-full">
         <TabsList className="grid grid-cols-4 mb-8">
           <TabsTrigger value="novasign">NovaSign</TabsTrigger>
