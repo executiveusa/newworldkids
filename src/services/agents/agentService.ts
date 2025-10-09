@@ -1,5 +1,5 @@
 
-import { supabase } from "@/integrations/supabase/client";
+import { lovableClient, isLovableConfigured } from "@/services/client";
 
 export type AgentType = 'NovaSign' | 'EchoAgent' | 'FlowAgent' | 'PulseAgent';
 
@@ -23,18 +23,33 @@ export const sendMessageToAgent = async (
   context?: AgentContext
 ): Promise<AgentMessage> => {
   try {
-    // In a production environment, this would call your edge function
-    // or external API to process the message with the appropriate agent
-    console.log(`Sending message to ${agentType}:`, message);
-    
-    // Mock response for now
+    if (isLovableConfigured()) {
+      const payload = {
+        agentType,
+        message,
+        context,
+      };
+
+      const data = await lovableClient.post<{
+        reply: string;
+        metadata?: Record<string, unknown>;
+      }>(`/agents/${agentType}/messages`, payload);
+
+      return {
+        role: 'agent',
+        content: data.reply,
+        timestamp: new Date(),
+        agentType,
+      };
+    }
+
     const response: AgentMessage = {
       role: 'agent',
       content: `This is a placeholder response from ${agentType}. In the production version, this would be connected to your AI service.`,
       timestamp: new Date(),
       agentType
     };
-    
+
     return response;
   } catch (error) {
     console.error(`Error sending message to ${agentType}:`, error);

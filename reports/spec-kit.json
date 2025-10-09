@@ -1,0 +1,30 @@
+{
+  "project": "newworldkids",
+  "upgrade": {
+    "lovableCloudClient": true,
+    "microsoftAgentFramework": true,
+    "lemonAIChat": true,
+    "infisicalTemplate": true,
+    "supabaseRemoved": true
+  },
+  "featureFlags": {
+    "chat": "VITE_CHAT_ENABLED",
+    "lemonAI": "VITE_LEMONAI_API_KEY"
+  },
+  "documents": [
+    "reports/DESIGN_AUDIT.md",
+    "reports/MIGRATION_NOTES.md",
+    "reports/tokens.md",
+    "reports/component_inventory.md"
+  ],
+  "tests": {
+    "build": "pending",
+    "lighthouse": "blocked-no-browser",
+    "accessibility": "manual-follow-up"
+  },
+  "notes": [
+    "Infisical CLI installation failed in CI sandbox due to ENETUNREACH; install locally to use template.",
+    "Agent self-check falls back to local mock responses when Lovable Cloud credentials are missing.",
+    "Run npm install --legacy-peer-deps in repo root and newworldkids-main workspace after pulling."
+  ]
+}

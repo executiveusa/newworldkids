@@ -1,0 +1,5 @@
+{
+  "status": "skipped",
+  "reason": "No headless browser available in execution environment",
+  "recommendedCommand": "npx lighthouse http://localhost:5173 --preset=desktop --output=json --output-path=reports/lighthouse-latest.json"
+}
