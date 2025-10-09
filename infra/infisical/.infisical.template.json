@@ -1,0 +1,22 @@
+{
+  "project": "newworldkids",
+  "environments": {
+    "development": {
+      "VITE_API_URL": "https://dev.lovable.cloud/api",
+      "VITE_LOVABLE_KEY": "dev_lovable_key",
+      "VITE_CHAT_ENABLED": "true",
+      "VITE_LEMONAI_API_KEY": "configure-in-backend"
+    },
+    "production": {
+      "VITE_API_URL": "https://prod.lovable.cloud/api",
+      "VITE_LOVABLE_KEY": "prod_lovable_key",
+      "VITE_CHAT_ENABLED": "true",
+      "VITE_LEMONAI_API_KEY": "configure-in-backend"
+    }
+  },
+  "instructions": [
+    "Install the Infisical CLI: npm install -g @infisical/cli",
+    "Authenticate: infisical login",
+    "Run commands with secrets injected: infisical run --env=development -- npm run dev:frontend"
+  ]
+}

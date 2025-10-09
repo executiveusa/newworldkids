@@ -1,0 +1,24 @@
+{
+  "name": "@newworldkids/agent-runtime",
+  "version": "0.1.0",
+  "description": "Composable wrapper around the Microsoft Agent Framework for Lovable Cloud integrations.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@tanstack/react-query": ">=5.0.0",
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  }
+}
