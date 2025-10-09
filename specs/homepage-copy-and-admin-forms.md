@@ -106,7 +106,7 @@ Each panel includes English (EN) and Spanish (ES) variants. Copy is written for 
 - **Section Label (ES):** Patrocinadores y aliados
 - **Body (EN):** Powered by makers, climate funds, and allies who believe in youth-led food freedom.
 - **Body (ES):** Impulsado por makers, fondos climáticos y aliadxs que creen en la libertad alimentaria liderada por jóvenes.
-- **CTA (EN/ES):** Become a supporter / Conviértete en aliadx
+- **CTA (EN/ES):** Become a supporter / Conviértete en aliado/aliada
 - **Alt Text Guidance:** Include descriptive labels for each logo (e.g., “Bambu Labs logo”). Provide grayscale fallback for dark mode.
 
 ---
