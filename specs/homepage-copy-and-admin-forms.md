@@ -84,7 +84,7 @@ Each panel includes English (EN) and Spanish (ES) variants. Copy is written for 
 
 ### 7. Build With Us (Open Source)
 - **Section Label (EN):** Build With Us (Open Source)
-- **Section Label (ES):** Construye con nosotrxs (código abierto)
+- **Section Label (ES):** Construye con nosotros (código abierto)
 - **Body (EN):** Download STL files, classroom guides, and maintenance checklists. Remix them for your climate, then share improvements with the community.
 - **Body (ES):** Descarga archivos STL, guías para el aula y listas de mantenimiento. Adáptalos a tu clima y comparte mejoras con la comunidad.
 - **Links:**
