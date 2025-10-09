@@ -179,7 +179,7 @@ const ChatDock = () => {
               rows={3}
               className="mb-2 resize-none border-none bg-background text-sm shadow-none focus-visible:ring-0"
               aria-label="Message Lemon AI"
-              disabled={sendMutation.isPending && !lovableReady}
+              disabled={sendMutation.isPending || !lovableReady}
             />
             <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
               <span>
