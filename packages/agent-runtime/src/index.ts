@@ -31,12 +31,17 @@ const defaultTools: AgentTool[] = [
     name: "http",
     description: "Performs HTTP requests using fetch under the hood.",
     execute: async (input) => {
-      const { url, method = "GET", body } = JSON.parse(input) as {
-        url: string;
-        method?: string;
-        body?: unknown;
-      };
-
+      let parsedInput;
+      try {
+        parsedInput = JSON.parse(input) as {
+          url: string;
+          method?: string;
+          body?: unknown;
+        };
+      } catch (err) {
+        throw new Error(`Failed to parse input as JSON in http tool: ${err instanceof Error ? err.message : String(err)}. Input: ${input}`);
+      }
+      const { url, method = "GET", body } = parsedInput;
       const response = await fetch(url, {
         method,
         body: body ? JSON.stringify(body) : undefined,
