@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import EveryOrgDonate from "@/components/EveryOrgDonate";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import DonationProgress from '@/components/donation/DonationProgress';
 import DonationForm from '@/components/donation/DonationForm';
@@ -34,6 +35,15 @@ const DonationPage = () => {
         <p className="text-xl text-white/80 max-w-2xl mx-auto">
           Your donations help us educate children about blockchain technology and fund conservation efforts for endangered species.
         </p>
+        <div className="mt-6 flex justify-center">
+          <EveryOrgDonate
+            className="inline-flex items-center rounded-md bg-[#F2FF44] px-6 py-3 text-lg font-semibold text-black transition hover:bg-[#E2EF34]"
+            aria-label="Donate via Every.org"
+            target="_blank"
+            rel="noreferrer"
+            data-track="donation-page-hero"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">

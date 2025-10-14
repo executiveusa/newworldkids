@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import EveryOrgDonate from "@/components/EveryOrgDonate";
 import { Menu, X, LogIn } from "lucide-react";
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
@@ -47,6 +48,12 @@ const Navbar = () => {
           <Link to="/blog" className={`${isActive('/blog')} transition-colors font-archivo`}>
             Blog
           </Link>
+          <EveryOrgDonate
+            className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] px-4 py-2 rounded-md font-archivo font-semibold"
+            aria-label="Donate via Every.org"
+            target="_blank"
+            rel="noreferrer"
+          />
           {connected ? <WalletMultiButton className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] px-4 py-2 rounded-md" /> : <Button className="bg-[#F2FF44] text-black hover:bg-[#E2EF34]">
               Connect Wallet
               <LogIn className="w-4 h-4 ml-2" />
@@ -74,6 +81,13 @@ const Navbar = () => {
               <Link to="/blog" className={`${isActive('/blog')} px-4 py-2 font-archivo`} onClick={() => setMobileMenuOpen(false)}>
                 Blog
               </Link>
+              <EveryOrgDonate
+                className="mx-4 px-4 py-2 rounded-md bg-[#F2FF44] text-black hover:bg-[#E2EF34] text-center font-archivo"
+                aria-label="Donate via Every.org"
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+              />
               {connected ? <div className="px-4 py-2">
                   <WalletMultiButton className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] px-4 py-2 rounded-md w-full" />
                 </div> : <Button className="bg-[#F2FF44] text-black hover:bg-[#E2EF34] mx-4">
