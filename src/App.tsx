@@ -58,7 +58,7 @@ const App = () => {
                 <BrowserRouter>
                   <div className="min-h-screen flex flex-col bg-background">
                     <Navbar />
-                    <main className="flex-grow pt-20">
+                    <main id="main" className="flex-grow pt-20">
                       <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/dashboard" element={<Dashboard />} />
