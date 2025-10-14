@@ -1,4 +1,5 @@
 
+import EveryOrgDonate from "@/components/EveryOrgDonate";
 import { Github, Twitter, Linkedin, Heart } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -25,6 +26,12 @@ const Footer = () => {
                 <Linkedin className="w-5 h-5" />
               </Button>
             </div>
+            <EveryOrgDonate
+              className="inline-flex items-center justify-center rounded-md bg-[#F2FF44] px-5 py-2 text-black transition hover:bg-[#E2EF34]"
+              aria-label="Donate via Every.org"
+              target="_blank"
+              rel="noreferrer"
+            />
           </div>
           
           <div className="space-y-4">
