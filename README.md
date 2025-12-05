@@ -249,3 +249,24 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Built with ❤️ for educating the next generation about blockchain and conservation**
+
+## 🧭 Admin & Agent Ops Dashboard
+
+The `/dashboard` route inside the Vite app now exposes an admin shell with tabs for Overview, AI Agents, Tasks, Donors, Documents, and Settings. The layout uses a persistent sidebar and card-first views to keep navigation obvious and align with the "Don’t Make Me Think" guidance.
+
+### Run the dashboard locally
+1. Install dependencies at the repo root: `npm install --legacy-peer-deps`.
+2. Start the Vite frontend: `npm run dev` (served at http://localhost:5173 by default).
+3. Optional: Start the lightweight Express backend if you are developing APIs: `npm run dev:backend`.
+4. Visit http://localhost:5173/dashboard to access the admin shell.
+
+### Eigent multi-agent backend (optional but recommended)
+1. From the sibling repo `eigent-main/server`, copy the sample env: `cp .env.example .env`.
+2. Start the stack with Docker: `docker compose up -d` (FastAPI will listen on http://localhost:3001).
+3. In `newworldkids-main`, set `VITE_EIGENT_API_URL=http://localhost:3001` in a `.env.local` file for the Vite app.
+4. The dashboard will surface Eigent health, list agents when available, and allow you to create tasks that reference those agents.
+
+### Document handling
+- Multi-PDF upload controls exist on the Documents tab; files are staged locally in the UI for quick iteration.
+- Connect the upload flow to your preferred storage/API when you wire the backend endpoints.
+
