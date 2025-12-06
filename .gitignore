@@ -28,6 +28,12 @@ out/
 .env.test.local
 .env.production.local
 
+# Secrets - NEVER commit actual secrets
+master.secrets.json
+*.secrets.json
+!*.secrets.json.template
+.infisical.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
