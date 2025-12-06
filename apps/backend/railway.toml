@@ -20,11 +20,12 @@ numReplicas = 1
 # Memory limit (in MB) - kept minimal for free tier
 # Railway free tier allows up to 512MB
 # MARKER: COST_GUARDRAIL_MEMORY
-# To adjust, modify the Dockerfile or environment variables
+# Configure memory limits in Railway dashboard or via Railway CLI
 
 # CPU limit - kept minimal for free tier
 # Railway free tier provides limited CPU
 # MARKER: COST_GUARDRAIL_CPU
+# Configure CPU limits in Railway dashboard or via Railway CLI
 
 # Sleep configuration for cost savings
 # Service will sleep after period of inactivity
