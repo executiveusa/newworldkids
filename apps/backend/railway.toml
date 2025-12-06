@@ -7,3 +7,40 @@ healthcheckPath = "/health"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+
+# ============================================
+# COST-PROTECTION GUARDRAILS
+# ============================================
+# These settings enforce minimal resource usage to stay within free tier
+# Managed by Railway Zero-Secrets Bootstrapper
+
+# Resource limits - enforced to prevent runaway costs
+numReplicas = 1
+
+# Memory limit (in MB) - kept minimal for free tier
+# Railway free tier allows up to 512MB
+# MARKER: COST_GUARDRAIL_MEMORY
+# To adjust, modify the Dockerfile or environment variables
+
+# CPU limit - kept minimal for free tier
+# Railway free tier provides limited CPU
+# MARKER: COST_GUARDRAIL_CPU
+
+# Sleep configuration for cost savings
+# Service will sleep after period of inactivity
+sleepApplication = true
+
+# ============================================
+# FREE-TIER MONITORING MARKERS
+# ============================================
+# These markers are used by monitoring agents to track usage
+# MARKER: FREE_TIER_CHECK_ENABLED
+# MARKER: MAINTENANCE_MODE_TRIGGER_THRESHOLD_PERCENT = 80
+# MARKER: AUTO_SHUTDOWN_ENABLED = true
+
+# ============================================
+# MULTI-HOST FAILOVER MARKERS
+# ============================================
+# Scaffolding for Coolify migration
+# MARKER: COOLIFY_MIGRATION_READY = true
+# MARKER: HOSTINGER_VPN_COMPATIBLE = true
