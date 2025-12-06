@@ -27,7 +27,16 @@ This document provides a step-by-step checklist for migrating New World Kids fro
 
 - [ ] **Coolify installed**
   ```bash
-  curl -fsSL https://cdn.coollabs.io/coolify/install.sh | bash
+  # Download the install script first for inspection
+  curl -fsSL https://cdn.coollabs.io/coolify/install.sh -o coolify-install.sh
+  
+  # Review the script contents
+  cat coolify-install.sh
+  
+  # Verify checksum if available from Coolify documentation
+  # Then execute if satisfied with contents
+  chmod +x coolify-install.sh
+  ./coolify-install.sh
   ```
 
 - [ ] **SSL certificates configured**

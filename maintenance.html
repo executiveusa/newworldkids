@@ -160,10 +160,20 @@
             document.getElementById('cost-notice').style.display = 'block';
         }
 
-        // Auto-refresh every 5 minutes to check if service is back
-        setTimeout(() => {
-            window.location.reload();
-        }, 300000);
+        // Auto-refresh with exponential backoff to check if service is back
+        // Starts at 15 minutes, doubles up to 1 hour max
+        let refreshInterval = 900000; // 15 minutes
+        const maxInterval = 3600000; // 1 hour
+        
+        function scheduleRefresh() {
+            setTimeout(() => {
+                window.location.reload();
+            }, refreshInterval);
+            // Increase interval for next refresh (exponential backoff)
+            refreshInterval = Math.min(refreshInterval * 2, maxInterval);
+        }
+        
+        scheduleRefresh();
     </script>
 </body>
 </html>
