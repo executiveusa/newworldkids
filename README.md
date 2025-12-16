@@ -270,3 +270,47 @@ The `/dashboard` route inside the Vite app now exposes an admin shell with tabs 
 - Multi-PDF upload controls exist on the Documents tab; files are staged locally in the UI for quick iteration.
 - Connect the upload flow to your preferred storage/API when you wire the backend endpoints.
 
+
+## 🚀 Zero-Secrets Deployment
+
+This project supports the **Railway Zero-Secrets Bootstrapper** pattern for secure, cost-protected deployments.
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `.agents` | Machine-readable secret specification for provisioning agents |
+| `master.secrets.json.template` | Template for local secrets management |
+| `maintenance.html` | Static maintenance page for auto-shutdown |
+| `COOLIFY_SUPPORT.md` | Coolify deployment scaffolding |
+| `COOLIFY_MIGRATION.md` | Migration checklist for Coolify |
+
+### Cost Protection Guardrails
+
+The Railway deployment includes built-in cost protection:
+
+- **Resource Limits**: Enforced minimal memory/CPU allocation
+- **Free Tier Monitoring**: Automatic detection of usage ceiling
+- **Auto-Shutdown**: Service pauses when limits approached
+- **Maintenance Mode**: Static page deployment during shutdown
+
+### Secret Management
+
+```bash
+# 1. Copy template to secure location (outside repo)
+cp master.secrets.json.template ~/secure/master.secrets.json
+
+# 2. Fill in your actual secrets
+# 3. Use with secrets-provisioning agent for deployment
+
+# NEVER commit master.secrets.json to version control
+```
+
+### Multi-Host Failover
+
+When Railway free tier is exceeded:
+
+1. **Automatic Shutdown**: Main service pauses
+2. **Maintenance Page**: Static page deployed
+3. **Migration Ready**: Coolify config scaffolding available
+4. **Checklist Generated**: See `COOLIFY_MIGRATION.md`

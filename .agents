@@ -1,0 +1,236 @@
+{
+  "project": "newworldkids",
+  "version": "1.0.0",
+  "description": "Secret specification file for Railway Zero-Secrets Bootstrapper agent",
+  "schema_version": "1.0",
+  "core": [
+    {
+      "name": "DATABASE_URL",
+      "description": "PostgreSQL connection string for the backend database",
+      "format": "postgresql://USER:PASSWORD@HOST:PORT/DATABASE",
+      "required": true,
+      "module": "database",
+      "placeholder": "postgresql://user:pass@host:port/db"
+    },
+    {
+      "name": "JWT_SECRET",
+      "description": "Secret key for JWT token signing",
+      "format": "string (min 32 characters)",
+      "required": true,
+      "module": "authentication",
+      "placeholder": "your_super_secret_jwt_key_here_replace_in_production"
+    },
+    {
+      "name": "PORT",
+      "description": "Port for the backend server",
+      "format": "integer",
+      "required": false,
+      "default": "8080",
+      "module": "server"
+    },
+    {
+      "name": "NODE_ENV",
+      "description": "Node environment setting",
+      "format": "string (development|staging|production)",
+      "required": false,
+      "default": "production",
+      "module": "server"
+    }
+  ],
+  "optional": [
+    {
+      "name": "FRONTEND_URL",
+      "description": "URL of the deployed frontend for CORS configuration",
+      "format": "https://your-frontend.example.com",
+      "required": false,
+      "module": "cors",
+      "placeholder": "https://your-frontend.vercel.app"
+    },
+    {
+      "name": "NEXT_PUBLIC_API_BASE_URL",
+      "description": "Public API URL for frontend to connect to backend",
+      "format": "https://your-backend.example.com",
+      "required": false,
+      "module": "frontend",
+      "placeholder": "https://your-backend.up.railway.app"
+    },
+    {
+      "name": "NEXT_PUBLIC_SOLANA_NETWORK",
+      "description": "Solana network configuration",
+      "format": "string (mainnet-beta|testnet|devnet)",
+      "required": false,
+      "default": "mainnet-beta",
+      "module": "blockchain"
+    }
+  ],
+  "optional_integrations": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "description": "Supabase project URL (optional, for migration)",
+      "format": "https://xxx.supabase.co",
+      "required": false,
+      "module": "supabase",
+      "disabled_for_zero_secrets": true,
+      "placeholder": "https://your-project.supabase.co"
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "description": "Supabase anonymous key (optional, for migration)",
+      "format": "eyJ... (JWT token)",
+      "required": false,
+      "module": "supabase",
+      "disabled_for_zero_secrets": true,
+      "placeholder": "your_supabase_anon_key_here"
+    },
+    {
+      "name": "VITE_API_URL",
+      "description": "API URL for Vite frontend (legacy)",
+      "format": "URL string",
+      "required": false,
+      "module": "vite_legacy",
+      "disabled_for_zero_secrets": true,
+      "placeholder": ""
+    },
+    {
+      "name": "VITE_LOVABLE_KEY",
+      "description": "Lovable integration key",
+      "format": "string",
+      "required": false,
+      "module": "lovable",
+      "disabled_for_zero_secrets": true,
+      "placeholder": ""
+    },
+    {
+      "name": "VITE_CHAT_ENABLED",
+      "description": "Enable chat feature",
+      "format": "boolean (true|false)",
+      "required": false,
+      "default": "false",
+      "module": "chat",
+      "disabled_for_zero_secrets": true
+    },
+    {
+      "name": "VITE_LEMONAI_API_KEY",
+      "description": "LemonAI integration key",
+      "format": "string",
+      "required": false,
+      "module": "lemonai",
+      "disabled_for_zero_secrets": true,
+      "placeholder": ""
+    },
+    {
+      "name": "LOVABLE_API_KEY",
+      "description": "Lovable API key for Cloud deployment",
+      "format": "string",
+      "required": false,
+      "module": "lovable",
+      "disabled_for_zero_secrets": true,
+      "placeholder": ""
+    },
+    {
+      "name": "LEMONAI_API_KEY",
+      "description": "LemonAI API key for Cloud deployment",
+      "format": "string",
+      "required": false,
+      "module": "lemonai",
+      "disabled_for_zero_secrets": true,
+      "placeholder": ""
+    },
+    {
+      "name": "VITE_EIGENT_API_URL",
+      "description": "Eigent multi-agent backend URL",
+      "format": "http://localhost:3001",
+      "required": false,
+      "module": "eigent",
+      "disabled_for_zero_secrets": true,
+      "placeholder": "http://localhost:3001"
+    }
+  ],
+  "modules": {
+    "database": {
+      "description": "PostgreSQL database configuration",
+      "required_for_boot": true,
+      "provider_options": ["Railway", "Supabase", "Neon", "PlanetScale"]
+    },
+    "authentication": {
+      "description": "JWT authentication system",
+      "required_for_boot": true
+    },
+    "server": {
+      "description": "Express.js server configuration",
+      "required_for_boot": true
+    },
+    "cors": {
+      "description": "Cross-origin resource sharing settings",
+      "required_for_boot": false
+    },
+    "frontend": {
+      "description": "Next.js frontend configuration",
+      "required_for_boot": false
+    },
+    "blockchain": {
+      "description": "Solana wallet integration",
+      "required_for_boot": false
+    },
+    "supabase": {
+      "description": "Supabase integration (optional)",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    },
+    "vite_legacy": {
+      "description": "Legacy Vite frontend settings",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    },
+    "lovable": {
+      "description": "Lovable platform integration",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    },
+    "chat": {
+      "description": "Chat feature toggle",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    },
+    "lemonai": {
+      "description": "LemonAI integration",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    },
+    "eigent": {
+      "description": "Eigent multi-agent backend",
+      "required_for_boot": false,
+      "disabled_for_zero_secrets": true
+    }
+  },
+  "railway_config": {
+    "minimum_boot_vars": ["DATABASE_URL", "JWT_SECRET"],
+    "auto_provision": ["DATABASE_URL"],
+    "cost_guardrails": {
+      "enabled": true,
+      "max_memory_mb": 512,
+      "max_cpu_cores": 1,
+      "max_instances": 1,
+      "free_tier_monitoring": true
+    }
+  },
+  "coolify_compatibility": {
+    "supported": true,
+    "config_file": "COOLIFY_SUPPORT.md",
+    "migration_guide": "COOLIFY_MIGRATION.md"
+  },
+  "hostinger_vpn": {
+    "supported": true,
+    "notes": "Network tunneling configuration available in COOLIFY_SUPPORT.md"
+  },
+  "agent_instructions": {
+    "purpose": "This file is consumed by a secrets-provisioning agent to inject real secrets",
+    "workflow": [
+      "1. Parse this .agents file",
+      "2. Check master.secrets.json for existing values",
+      "3. Prompt user for any missing required secrets",
+      "4. Inject secrets into deployment platform (Railway/Coolify)",
+      "5. Never commit real secrets to the repository"
+    ]
+  }
+}
