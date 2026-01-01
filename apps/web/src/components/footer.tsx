@@ -1,114 +1,173 @@
 import Link from "next/link";
-import Logo from "@/assets/logo.svg";
-import GitHubIcon from "@/assets/github.svg";
-import TwitterIcon from "@/assets/twitter.svg";
-import DiscordIcon from "@/assets/discord.svg";
+import { Heart, Mail, Phone, MapPin } from "lucide-react";
+import { FiscalSponsorBadge } from "./FiscalSponsorBadge";
 
 export function Footer() {
   return (
     <footer className="bg-background/95 w-full border-t backdrop-blur-sm">
       <div className="container mx-auto flex flex-col gap-8 px-4 py-10 md:px-6 lg:py-16">
-        <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
-          <div className="col-span-2 max-w-md space-y-4">
-            <Link href="/" className="flex items-center gap-2 font-bold">
-              <Logo className="size-6" />
-              <span>tweakcn</span>
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Fiscal Sponsor Badge - Bottom Left Position */}
+          <div className="col-span-2 lg:col-span-1 order-last lg:order-first">
+            <FiscalSponsorBadge variant="full" />
+          </div>
+
+          {/* Organization Info */}
+          <div className="space-y-4">
+            <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+              <Heart className="size-6 fill-red-500 text-red-500" />
+              <span>New World Kids</span>
             </Link>
             <p className="text-muted-foreground text-sm">
-              A powerful visual theme editor for shadcn/ui components with Tailwind CSS support.
-              Make your components stand out.
+              Empowering the next generation through education, technology, and community.
+              Building bridges between cultures and creating opportunities for children worldwide.
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-col gap-2 text-sm text-muted-foreground">
               <a
-                href="https://github.com/jnsahaj/tweakcn"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                href="mailto:info@nwkids.org"
+                className="flex items-center gap-2 hover:text-foreground transition-colors"
               >
-                <GitHubIcon className="size-5" />
-                <span className="sr-only">GitHub</span>
+                <Mail className="size-4" />
+                info@nwkids.org
               </a>
               <a
-                href="https://discord.gg/Phs4u2NM3n"
-                className="text-muted-foreground hover:text-foreground transition-colors"
+                href="tel:3234842914"
+                className="flex items-center gap-2 hover:text-foreground transition-colors"
               >
-                <DiscordIcon className="size-5" />
-                <span className="sr-only">Discord</span>
+                <Phone className="size-4" />
+                (323) 484-2914
               </a>
-              <a
-                href="https://x.com/iamsahaj_xyz"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <TwitterIcon className="size-5" />
-                <span className="sr-only">Twitter</span>
-              </a>
+              <div className="flex items-start gap-2">
+                <MapPin className="size-4 shrink-0 mt-0.5" />
+                <span>6725 S 116th Pl<br />Seattle, WA 98178</span>
+              </div>
             </div>
           </div>
+
+          {/* Quick Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-bold">Product</h4>
+            <h4 className="text-sm font-bold">Get Involved</h4>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
-                  href="/#features"
+                  href="/donate"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Features
+                  Donate Now
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/#examples"
+                  href="/impact"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Examples
+                  Our Impact
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/#roadmap"
+                  href="/projects"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Roadmap
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/volunteer"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Volunteer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Blog
                 </Link>
               </li>
             </ul>
           </div>
+
+          {/* About Links */}
           <div className="space-y-4">
-            <h4 className="text-sm font-bold">Resources</h4>
+            <h4 className="text-sm font-bold">About</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a
-                  href="https://github.com/jnsahaj/tweakcn"
+                <Link
+                  href="/about"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  GitHub
-                </a>
+                  Our Story
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://discord.gg/Phs4u2NM3n"
+                <Link
+                  href="/team"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Discord
-                </a>
+                  Team
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://x.com/messages/compose?recipient_id=1426676644152889345"
+                <Link
+                  href="/partners"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Contact
-                </a>
+                  Partners
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/transparency"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Transparency
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Contact Us
+                </Link>
               </li>
             </ul>
           </div>
         </div>
 
+        {/* Bottom Bar */}
         <div className="border-border/40 flex flex-col items-center justify-between gap-4 border-t pt-8 sm:flex-row">
-          <p className="text-muted-foreground text-xs">
-            &copy; {new Date().getFullYear()} tweakcn. All rights reserved.
-          </p>
-          <p className="text-muted-foreground text-xs">
-            <Link href="/privacy-policy">Privacy Policy</Link>
-          </p>
+          <div className="flex items-center gap-4 text-muted-foreground text-xs">
+            <p>&copy; {new Date().getFullYear()} New World Kids. All rights reserved.</p>
+            <span className="hidden sm:inline">•</span>
+            <span className="text-green-600 dark:text-green-400 font-medium">
+              501(c)(3) Tax-Exempt Organization
+            </span>
+          </div>
+          <div className="flex gap-4 text-xs">
+            <Link
+              href="/privacy-policy"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href="/accessibility"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Accessibility
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
