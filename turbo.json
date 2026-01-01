@@ -2,12 +2,19 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env", "**/.env.*local"],
   "globalEnv": [
+    "NODE_ENV",
     "NEXT_OUTPUT",
+    "NEXT_PUBLIC_APP_URL",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "NEXT_PUBLIC_SOLANA_NETWORK",
+    "NEXT_PUBLIC_NFT_CONTRACT_ADDRESS",
     "APP_PUBLIC_URL",
     "STRAPI_URL",
     "STRAPI_REST_READONLY_API_KEY",
-    "SENTRY_SUPPRESS_GLOBAL_ERROR_HANDLER_FILE_WARNING",
-    "WEBPACK_CACHE_TYPE"
+    "OPENAI_API_KEY",
+    "ANTHROPIC_API_KEY",
+    "GOOGLE_AI_API_KEY"
   ],
   "tasks": {
     "build": {
@@ -21,8 +28,15 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "type-check": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "clean": {
+      "cache": false
+    },
     "dev": {
-      "dependsOn": ["@repo/shared-data#build", "@repo/design-system#build"],
+      "dependsOn": ["@nwkids/shared-data#build", "@nwkids/design-system#build"],
       "cache": false,
       "persistent": true
     },
