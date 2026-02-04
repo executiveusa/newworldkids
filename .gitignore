@@ -26,19 +26,30 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
+# local env files - NEVER COMMIT
 .env
+.env.*
 .env.local
+.env.development
 .env.development.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
 # Master secrets file - NEVER COMMIT
 master.secrets.json
+secrets.json
+*.secrets.json
 
 # MCP configuration (contains API keys)
 .claude/mcp.json
 .claude/mcp.yaml
+
+# Credentials - NEVER COMMIT
+credentials.txt
+tokens.txt
+api-keys.txt
 
 # turbo
 .turbo
