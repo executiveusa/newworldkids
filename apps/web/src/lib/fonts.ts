@@ -1,8 +1,8 @@
 // ============================================================================
-// TYPOGRAPHY SYSTEM - Existing + Stellar Cockpit Fonts
+// TYPOGRAPHY SYSTEM - Professional Nonprofit Design
 // ============================================================================
 
-import { Roboto, Space_Grotesk, Orbitron, Inter, JetBrains_Mono } from "next/font/google"
+import { Roboto, Space_Grotesk, Orbitron, Inter, JetBrains_Mono, Playfair_Display } from "next/font/google"
 
 // Existing Roboto font
 export const fontRoboto = Roboto({
@@ -12,11 +12,23 @@ export const fontRoboto = Roboto({
 })
 
 // ============================================================================
-// STELLAR COCKPIT - AWWWARDS-INSPIRED FONTS
+// PROFESSIONAL NONPROFIT FONTS
 // ============================================================================
 
 /**
- * Space Grotesk - Display & Headings
+ * Playfair Display - Elegant Serif for Headlines
+ * Classic, trustworthy feel perfect for nonprofit branding
+ */
+export const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-playfair',
+  display: 'swap',
+  preload: true,
+})
+
+/**
+ * Space Grotesk - Display & Headings (kept for internal tools)
  * Geometric sans-serif with a modern, cosmic feel
  */
 export const spaceGrotesk = Space_Grotesk({
@@ -64,6 +76,11 @@ export const jetbrainsMono = JetBrains_Mono({
 })
 
 /**
- * Combined font variables for Stellar Cockpit
+ * Combined font variables for Stellar Cockpit (internal tools)
  */
 export const stellarFontVariables = `${spaceGrotesk.variable} ${orbitron.variable} ${inter.variable} ${jetbrainsMono.variable}`
+
+/**
+ * Combined font variables for Professional Nonprofit Site (public)
+ */
+export const professionalFontVariables = `${playfairDisplay.variable} ${inter.variable}`
