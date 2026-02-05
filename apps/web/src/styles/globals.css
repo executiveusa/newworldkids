@@ -100,6 +100,7 @@
   --font-family-cosmic: var(--font-orbitron), ui-sans-serif, system-ui;
   --font-family-sans: var(--font-inter), ui-sans-serif, system-ui;
   --font-family-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-family-serif: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
 /* Cosmic gradient utilities for text */

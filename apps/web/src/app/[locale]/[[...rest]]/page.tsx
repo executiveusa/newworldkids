@@ -4,6 +4,7 @@ import { PageBuilder } from '@/components/page-builder';
 import { getDefaultMetadata } from '@/lib/metadata';
 import { getPageData } from '@/lib/firebase-api/content/server'; // Placeholder for Firebase API call
 import { getTranslations } from 'next-intl/server';
+import ProfessionalHomePage from '@/components/homepage/ProfessionalHomePage';
 
 // Placeholder for metadata generation, to be replaced with Firebase data
 export async function generateMetadata({ params }: {
@@ -51,6 +52,14 @@ export default async function RestPage({ params }: {
   params: { rest: string[] | undefined; locale: string };
 }) {
   const slug = params.rest || ['/'];
+  
+  // Render professional homepage for root path
+  const isHomePage = !params.rest || params.rest.length === 0 || (params.rest.length === 1 && params.rest[0] === '/');
+  
+  if (isHomePage) {
+    return <ProfessionalHomePage />;
+  }
+  
   const page = await getPageData({ // Placeholder
     slug,
     locale: params.locale,
