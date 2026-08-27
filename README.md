@@ -1,27 +1,33 @@
 # New World Kids Platform
 
-> **Moving young people from survival mode to purpose and dignity.**
+> **Help turn interest into opportunity.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-22.x-green)](https://nodejs.org/)
 [![Turborepo](https://img.shields.io/badge/turborepo-2.x-blueviolet)](https://turbo.build/)
 
-## 🌟 About
+## About
 
-New World Kids is a **nonprofit media company** creating real-world projects that teach self-sufficiency in food, water, energy, and shelter. We're building an inclusive, self-sufficient standard of living for the next **7 generations**.
+New World Kids connects young people's existing interests to real community projects, experienced mentors, paid opportunities, and a clear next step.
 
-### Our Projects
+The current Seattle focus is **The First 12**: 12 participants beginning in 2027. The model has four pathways into the same desired outcome.
 
-| Project | Description | Status |
-|---------|-------------|--------|
-| **Proyecto Indigo Azul** | Food forest in Puerto Vallarta, Mexico | 🟢 Active |
-| **Culture Shock Program** | Life skills training for ages 18-25 | 🟢 Active |
-| **Culture Shock Sports** | Athlete mentorship & documentation | 🟡 Building |
-| **The Real Minority Report** | Community newspaper for PNW | 🔵 Launching 2026 |
+### The four pathways
+
+| Pathway | Focus | Goal |
+|---------|-------|------|
+| **Built for Good** | Technology | Real digital projects, paid experience, portfolio work, and mentorship |
+| **Beyond the Game** | Sports | Exposure to the work and economy around sports through real roles and mentors |
+| **Ground Up** | Urban Gardening + Food Systems | Hands-on food-systems, sustainability, construction, and stewardship projects |
+| **Make Your Mark** | Art | Restoration, design, creation, and completed public-facing work |
+
+### Proyecto Indigo Azul
+
+Proyecto Indigo Azul in Puerto Vallarta, Mexico is the proof of concept behind part of the model. It showed what can happen when youth are given meaningful work, responsibility, and a chance to contribute. Seattle will look different, but the principle stays the same.
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 new-world-kids/
@@ -48,7 +54,7 @@ new-world-kids/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -60,8 +66,8 @@ new-world-kids/
 
 ```bash
 # Clone the repository
-git clone https://github.com/executiveusa/strapi-template-new-world-kids.git
-cd strapi-template-new-world-kids
+git clone https://github.com/executiveusa/newworldkids.git
+cd newworldkids
 
 # Install dependencies
 yarn install
@@ -83,9 +89,9 @@ yarn dev
 
 ---
 
-## 🤖 AI Agents (Stellar Cockpit)
+## AI Agents (Stellar Cockpit)
 
-Our platform is powered by 6 AI agents:
+Our platform includes 6 AI agent roles:
 
 | Agent | Role | Provider |
 |-------|------|----------|
@@ -100,18 +106,17 @@ Access the cockpit at `/cockpit` after login.
 
 ---
 
-## 💰 Donations
+## Donations
 
-We accept donations via:
+Donations support participant wages, transportation, project materials, equipment, mentor support, and program coordination for New World Kids projects including the First 12.
 
-- **Solana blockchain** (SOL, USDC) - NFT receipt for $50+
-- **Traditional methods** via our fiscal sponsor
+Traditional donations are processed through our fiscal sponsor, **Humanitarian Social Innovations**. If a donation receipt lists Humanitarian Social Innovations, that is correct. Please reference **NEW WORLD KIDS**.
 
 See [docs/FISCAL_SPONSOR.md](docs/FISCAL_SPONSOR.md) for details.
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - [Architecture](docs/ARCHITECTURE.md)
 - [Deployment](docs/DEPLOYMENT.md)
@@ -121,18 +126,18 @@ See [docs/FISCAL_SPONSOR.md](docs/FISCAL_SPONSOR.md) for details.
 
 ---
 
-## 🏛️ Fiscal Sponsorship
+## Fiscal Sponsorship
 
 New World Kids is a fiscally sponsored project of **Humanitarian Social Innovations**, a 501(c)(3) nonprofit organization. Donations are tax-deductible to the extent allowed by law.
 
 **Contact:**
-- 📍 6725 S 116th Pl, Seattle, WA 98178
-- 📧 info@nwkids.org
-- 📞 323-484-2914
+- 6725 S 116th Pl, Seattle, WA 98178
+- info@nwkids.org
+- 323-484-2914
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/amazing`)
@@ -142,10 +147,6 @@ New World Kids is a fiscally sponsored project of **Humanitarian Social Innovati
 
 ---
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) for details.
-
----
-
-**Built with ❤️ for the next 7 generations.**
