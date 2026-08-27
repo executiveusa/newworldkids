@@ -2,7 +2,8 @@
 
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import Link from 'next/link'
+
+const FUNDRAZR_URL = 'https://fundrazr.com/nwkids.org'
 
 const donationTiers = [
   {
@@ -107,12 +108,14 @@ export function DonationCTA() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="text-center"
         >
-          <Link
-            href="/donate"
+          <a
+            href={FUNDRAZR_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center justify-center px-10 py-5 text-xl font-bold text-blue-900 bg-white rounded-full hover:bg-amber-50 transition-all duration-300 shadow-2xl hover:shadow-white/20"
           >
             Support the First 12
-          </Link>
+          </a>
 
           <div className="mt-8 max-w-3xl mx-auto text-sm leading-6 text-white/60">
             <p>
