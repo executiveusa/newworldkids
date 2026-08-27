@@ -110,6 +110,8 @@ Access the cockpit at `/cockpit` after login.
 
 Donations support participant wages, transportation, project materials, equipment, mentor support, and program coordination for New World Kids projects including the First 12.
 
+The public donation form is hosted on FundRazr: **https://fundrazr.com/nwkids.org**. The site donation CTA links there directly, and `/donate` redirects there so older internal donation links continue to work.
+
 Traditional donations are processed through our fiscal sponsor, **Humanitarian Social Innovations**. If a donation receipt lists Humanitarian Social Innovations, that is correct. Please reference **NEW WORLD KIDS**.
 
 See [docs/FISCAL_SPONSOR.md](docs/FISCAL_SPONSOR.md) for details.
