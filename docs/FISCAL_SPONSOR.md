@@ -2,38 +2,25 @@
 
 ## Humanitarian Social Innovations
 
-New World Kids operates as a **fiscally sponsored project** of Humanitarian Social Innovations (HSI), a registered 501(c)(3) nonprofit organization.
+New World Kids operates as a **fiscally sponsored project** of Humanitarian Social Innovations (HSI), a registered 501(c)(3) public charity.
 
 ---
 
-## What This Means
-
-### For Donors
-- ✅ **Tax-deductible donations** - Your contribution is tax-deductible to the full extent of the law
-- ✅ **Verified nonprofit status** - HSI's 501(c)(3) status has been verified by the IRS
-- ✅ **Transparent operations** - All funds are managed with full accountability
-
-### For Partners
-- ✅ **Grant eligibility** - We can receive foundation grants and government funding
-- ✅ **Corporate matching** - Donations qualify for employer matching programs
-- ✅ **Institutional credibility** - Backed by an established nonprofit infrastructure
-
----
-
-## Organization Details
-
-### New World Kids Project
+## Public Identity
 
 | Field | Information |
 |-------|-------------|
-| **Legal Name** | New World Kids (project of HSI) |
-| **Address** | 6725 S 116th Pl, Seattle, WA 98178-3050 |
-| **Phone** | 323-484-2914 |
-| **Email** | info@nwkids.org |
+| **Public Name** | New World Kids |
+| **Status** | Fiscally sponsored project of Humanitarian Social Innovations |
+| **Public Contact** | info@nwkids.org |
 | **Website** | https://nwkids.org |
-| **Project Lead** | Tyshawn Morehead |
+| **Accountable Contact** | Jeremy Bowers |
 
-### Fiscal Sponsor
+New World Kids does not publish the older address, phone number, or former project-lead listing previously contained in this file. Those entries were stale and must not be reused in public copy, account setup, grant materials, or automated workflows.
+
+---
+
+## Fiscal Sponsor
 
 | Field | Information |
 |-------|-------------|
@@ -43,59 +30,26 @@ New World Kids operates as a **fiscally sponsored project** of Humanitarian Soci
 
 ---
 
-## How to Donate
+## Donation Identity
 
-### Online Donations
-Visit our [Donate page](/donate) to contribute via:
-- **Solana blockchain** (SOL or USDC) - NFT receipt for donations $50+
-- **Credit/Debit card** (coming soon)
-- **PayPal** (coming soon)
+Donations intended for New World Kids are administered through Humanitarian Social Innovations. Public-facing donation language must distinguish the New World Kids project from the fiscal sponsor and must not imply that New World Kids independently holds federal 501(c)(3) recognition.
 
-### By Check
-Make checks payable to:
-```
-Humanitarian Social Innovations
-Memo: New World Kids
-```
-
-Mail to:
-```
-New World Kids
-6725 S 116th Pl
-Seattle, WA 98178
-```
-
-### Amazon Wishlist
-Support us by purchasing items from our [Amazon Wishlist](#) (link coming soon).
-
----
-
-## Tax Information
-
-For tax purposes, please retain your donation receipt. Donations are tax-deductible under IRS regulations for 501(c)(3) organizations.
-
-**Note:** Please consult with a tax professional regarding your specific tax situation.
+For current donation instructions, use the live New World Kids donation flow and the current fiscal-sponsorship agreement. Do not restore legacy payment methods or mailing instructions from repository history without renewed verification.
 
 ---
 
 ## Contact
 
-For questions about donations or fiscal sponsorship:
+For current questions about New World Kids or its fiscal-sponsorship relationship:
 
-- 📧 **Email:** info@nwkids.org
-- 📞 **Phone:** 323-484-2914
-- 📍 **Address:** 6725 S 116th Pl, Seattle, WA 98178
-
----
-
-## Transparency
-
-We believe in full transparency. Our fiscal sponsor relationship ensures:
-
-1. **Financial Oversight** - All funds are managed according to nonprofit best practices
-2. **Annual Reporting** - We provide regular updates on fund usage
-3. **Compliance** - Full adherence to IRS regulations for 501(c)(3) organizations
+- **Email:** info@nwkids.org
+- **Accountable contact:** Jeremy Bowers
+- **Website:** https://nwkids.org
 
 ---
 
-*Last updated: December 2025*
+## Change-control note
+
+This document is a repository reference, not a substitute for the signed fiscal-sponsorship agreement or current sponsor records. If a conflict appears, authoritative legal and sponsor documents control.
+
+*Updated during the 2026 structural-hardening remediation sprint.*
