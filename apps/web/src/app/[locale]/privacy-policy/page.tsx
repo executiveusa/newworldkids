@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import Link from 'next/link'
 
 type PrivacyPageProps = {
@@ -33,7 +34,7 @@ function PolicyShell({
   locale: string
   title: string
   intro: string
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <main className="bg-white text-slate-900">
@@ -64,7 +65,7 @@ function PolicyShell({
   )
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
       <h2 className="text-2xl font-bold text-slate-900">{title}</h2>
