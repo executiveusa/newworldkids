@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import Link from "next/link"
 
 import { AppLocale } from "@/types/general"
 
@@ -56,7 +57,7 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
             )}
           </div>
 
-          <div className="flex flex-col items-end sm:flex-row sm:items-center sm:space-x-4">
+          <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:space-x-4 sm:gap-0">
             {component.links?.map((link, i) => (
               <Fragment key={String(link.id) + i}>
                 <StrapiLink
@@ -74,6 +75,16 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
                 )}
               </Fragment>
             ))}
+
+            {component.links && component.links.length > 0 && (
+              <span className="mx-2 hidden pt-0.5 sm:inline-block">•</span>
+            )}
+            <Link
+              href={`/${locale}/privacy-policy`}
+              className="text-primary relative w-fit text-sm hover:underline"
+            >
+              {locale === "es" ? "Privacidad" : "Privacy"}
+            </Link>
           </div>
         </div>
       </Container>
