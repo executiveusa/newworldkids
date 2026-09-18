@@ -18,7 +18,7 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
   }
 
   return (
-    <div className="w-full border-t bg-white/10 shadow-sm backdrop-blur transition-colors duration-300">
+    <footer className="w-full border-t bg-white/10 shadow-sm backdrop-blur transition-colors duration-300">
       <Container className="pt-8 pb-4">
         <div className="grid grid-cols-1 gap-6 pb-4 sm:grid-cols-[30%_1fr]">
           <div className="flex flex-col space-y-4">
@@ -26,6 +26,19 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
               component={component.logoImage}
               imageProps={{ hideWhenMissing: true }}
             />
+            <div className="max-w-sm text-xs leading-5 text-slate-600">
+              <p>
+                <strong className="text-slate-900">New World Kids</strong> is a fiscally sponsored
+                project of Humanitarian Social Innovations. Donations for New World Kids are
+                administered through the fiscal sponsor.
+              </p>
+              <p className="mt-2">
+                Accountable contact: Jeremy Bowers ·{" "}
+                <a className="font-medium underline underline-offset-2" href="mailto:info@nwkids.org">
+                  info@nwkids.org
+                </a>
+              </p>
+            </div>
           </div>
 
           <div className={cn("grid gap-8")}>
@@ -48,7 +61,7 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
         <div className="flex items-center justify-between">
           <div>
             {component.copyRight && (
-              <p className="">
+              <p>
                 {component.copyRight.replace(
                   "{YEAR}",
                   new Date().getFullYear().toString()
@@ -88,7 +101,7 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
           </div>
         </div>
       </Container>
-    </div>
+    </footer>
   )
 }
 
