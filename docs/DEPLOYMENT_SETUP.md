@@ -14,8 +14,8 @@ This guide covers the complete setup for deploying New World Kids platform to pr
 ## Supabase Setup
 
 ### Project Information
-- **Project ID**: `sbbuxnyvflczfzvsglpe`
-- **Project URL**: `https://sbbuxnyvflczfzvsglpe.supabase.co`
+- **Legacy project reference**: `sbbuxnyvflczfzvsglpe` (must be re-verified before reuse)
+- **Current project URL**: configure through secure environment variables after project ownership is verified
 - **Pricing**: FREE tier (0-500MB database, 50K MAU) → $25/mo Pro (8GB database, 100K MAU)
 
 ### Features Used
@@ -126,8 +126,8 @@ CREATE POLICY "Only service can manage perks"
 ## Vercel Deployment
 
 ### Project Information
-- **Project ID**: `prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t`
-- **Token**: `WQj9DdjV7ZP93J1rN0BcY16F` (stored in `.env.local` - DO NOT COMMIT)
+- **Legacy project ID**: `prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t` (historical reference only)
+- **Token**: never store a live token in repository content; rotate any token previously committed
 
 ### Step 1: Install Vercel CLI
 
@@ -139,7 +139,7 @@ npm i -g vercel
 
 ```bash
 cd strapi-template-new-world-kids
-vercel link --project=prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t --token=WQj9DdjV7ZP93J1rN0BcY16F
+vercel link --project=prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t --token=<ROTATE_AND_SET_SECURELY>
 ```
 
 ### Step 3: Configure Build Settings
@@ -200,7 +200,7 @@ Copy from `.env.example`:
 ```env
 # Vercel
 VERCEL_PROJECT_ID=prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t
-VERCEL_TOKEN=WQj9DdjV7ZP93J1rN0BcY16F
+VERCEL_TOKEN=<ROTATE_AND_SET_SECURELY>
 
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://sbbuxnyvflczfzvsglpe.supabase.co
@@ -378,7 +378,7 @@ Check Supabase dashboard → Table Editor → `ai_conversations` for new row.
 You've provided the Supabase MCP connection:
 
 ```
-https://mcp.supabase.com/mcpsbp_4a59dc81197128115021f1a3b33a69d3d91aa40e
+<ROTATE_SUPABASE_MCP_CONNECTION>
 ```
 
 This allows Claude Code to directly interact with your Supabase database via the Model Context Protocol.
