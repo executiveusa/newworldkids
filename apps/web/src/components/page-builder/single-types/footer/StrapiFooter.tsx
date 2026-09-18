@@ -93,6 +93,20 @@ export async function StrapiFooter({ locale }: { readonly locale: AppLocale }) {
               <span className="mx-2 hidden pt-0.5 sm:inline-block">•</span>
             )}
             <Link
+              href={`/${locale}/governance`}
+              className="text-primary relative w-fit text-sm hover:underline"
+            >
+              {locale === "es" ? "Responsabilidad" : "Leadership"}
+            </Link>
+            <span className="mx-2 hidden pt-0.5 sm:inline-block">•</span>
+            <Link
+              href={`/${locale}/safeguarding`}
+              className="text-primary relative w-fit text-sm hover:underline"
+            >
+              {locale === "es" ? "Protección juvenil" : "Youth safety"}
+            </Link>
+            <span className="mx-2 hidden pt-0.5 sm:inline-block">•</span>
+            <Link
               href={`/${locale}/privacy-policy`}
               className="text-primary relative w-fit text-sm hover:underline"
             >
