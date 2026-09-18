@@ -7,6 +7,7 @@ import {
   ProjectsShowcase,
   DonationCTA,
 } from '@/components/homepage'
+import { InstitutionalTrustStrip } from '@/components/homepage/InstitutionalTrustStrip'
 import { useGSAPScrollTrigger } from '@/lib/gsap-config'
 
 /**
@@ -26,6 +27,7 @@ export default function ProfessionalHomePage() {
   return (
     <main className="relative overflow-x-hidden">
       <NonprofitHero />
+      <InstitutionalTrustStrip />
       <MissionSection />
       <ImpactStats />
       <ProjectsShowcase />
