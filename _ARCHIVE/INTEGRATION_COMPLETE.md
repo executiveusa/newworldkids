@@ -1,7 +1,7 @@
 # Supabase + Vercel Integration - COMPLETE ✅
 
 **Date**: October 20, 2025
-**Status**: Ready for deployment configuration
+**Status**: HISTORICAL ONLY — contains legacy architecture references; re-verify before reuse
 
 ---
 
@@ -12,7 +12,7 @@
 **Project Details:**
 - **Project ID**: `sbbuxnyvflczfzvsglpe`
 - **Project URL**: `https://sbbuxnyvflczfzvsglpe.supabase.co`
-- **MCP Connection**: `https://mcp.supabase.com/mcpsbp_4a59dc81197128115021f1a3b33a69d3d91aa40e`
+- **MCP Connection**: `<REDACTED_ROTATE_REQUIRED>`
 
 **Files Created/Updated:**
 - ✅ [apps/web/src/lib/supabase/client.ts](apps/web/src/lib/supabase/client.ts) - Frontend Supabase client
@@ -48,7 +48,7 @@ SUPABASE_SERVICE_ROLE_KEY=<from_supabase_dashboard>
 
 **Project Details:**
 - **Project ID**: `prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t`
-- **API Token**: `WQj9DdjV7ZP93J1rN0BcY16F` (stored in .env only)
+- **API Token**: `<REDACTED_ROTATE_REQUIRED>` (stored in .env only)
 
 **Files Created/Updated:**
 - ✅ [vercel.json](vercel.json) - Vercel deployment config
@@ -60,7 +60,7 @@ SUPABASE_SERVICE_ROLE_KEY=<from_supabase_dashboard>
   ```env
   # Vercel
   VERCEL_PROJECT_ID=prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t
-  VERCEL_TOKEN=WQj9DdjV7ZP93J1rN0BcY16F
+  VERCEL_TOKEN=<REDACTED_ROTATE_REQUIRED>
   ```
 
 **Build Configuration:**
@@ -263,7 +263,7 @@ strapi-template-new-world-kids/
 
 You now have access to these MCP servers:
 
-1. **Supabase MCP**: `https://mcp.supabase.com/mcpsbp_4a59dc81197128115021f1a3b33a69d3d91aa40e`
+1. **Supabase MCP**: `<REDACTED_ROTATE_REQUIRED>`
    - Direct database queries
    - Schema management
    - Real-time monitoring
@@ -288,7 +288,7 @@ Before deploying, ensure these are set:
 
 **Vercel (For deployment):**
 - [ ] `VERCEL_PROJECT_ID` = `prj_uyBo0MfsraJRp7k7ptUTt9A3vc0t`
-- [ ] `VERCEL_TOKEN` = `WQj9DdjV7ZP93J1rN0BcY16F` (local only)
+- [ ] `VERCEL_TOKEN` = `<REDACTED_ROTATE_REQUIRED>` (local only)
 
 **Other Services (Future):**
 - [ ] `NEXT_PUBLIC_STRAPI_URL` = Your Strapi CMS URL
@@ -342,5 +342,5 @@ Refer to [docs/DEPLOYMENT_SETUP.md](docs/DEPLOYMENT_SETUP.md) for detailed guide
 
 ---
 
-**Status**: ✅ Supabase + Vercel integration complete and documented
-**Ready for**: Database configuration → Environment variable setup → Deployment
+**Status**: ARCHIVED — do not treat legacy credentials, endpoints, or deployment claims as current.
+**Ready for**: Reference only after current infrastructure is independently verified.
