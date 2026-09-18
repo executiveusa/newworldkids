@@ -25,24 +25,42 @@ export default async function GovernancePage({ params }: PageProps) {
         </h1>
         <p className="mt-6 text-lg leading-8 text-slate-600">
           New World Kids is an early-stage, fiscally sponsored project building the First 12 pilot
-          in Seattle for 2027. This page publishes the accountability information that is verified
-          today without presenting unconfirmed titles, credentials, or governance claims.
+          in Seattle for 2027. We publish current roles and responsibilities without inflating
+          titles, credentials, or governance claims.
         </p>
 
         <section className="mt-12 border-t border-slate-200 pt-8">
-          <h2 className="text-2xl font-bold">Accountable contact</h2>
-          <div className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-            <p className="text-xl font-semibold">Jeremy Bowers</p>
-            <p className="mt-2 text-slate-600">
-              Accountable New World Kids contact for organizational and public follow-up.
-            </p>
-            <a
-              href="mailto:info@nwkids.org"
-              className="mt-4 inline-block font-semibold text-blue-950 underline underline-offset-4"
-            >
-              info@nwkids.org
-            </a>
+          <h2 className="text-2xl font-bold">Leadership</h2>
+          <div className="mt-5 grid gap-5">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <p className="text-xl font-semibold">Jeremy Bowers</p>
+              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                Accountable organizational contact
+              </p>
+              <p className="mt-3 text-slate-600">
+                Responsible for organizational and public follow-up, program accountability, and
+                coordination with New World Kids partners and the fiscal sponsor.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <p className="text-xl font-semibold">Pamela Knox</p>
+              <p className="mt-1 text-sm font-semibold uppercase tracking-[0.12em] text-slate-500">
+                Community Partnerships &amp; Operations Lead
+              </p>
+              <p className="mt-3 text-slate-600">
+                Supports community relationships, coordination, special projects, and the practical
+                work required to move New World Kids initiatives from planning into action.
+              </p>
+            </div>
           </div>
+
+          <a
+            href="mailto:info@nwkids.org"
+            className="mt-6 inline-block font-semibold text-blue-950 underline underline-offset-4"
+          >
+            info@nwkids.org
+          </a>
         </section>
 
         <section className="mt-12 border-t border-slate-200 pt-8">
@@ -58,9 +76,9 @@ export default async function GovernancePage({ params }: PageProps) {
         <section className="mt-12 border-t border-slate-200 pt-8">
           <h2 className="text-2xl font-bold">What we publish — and what we do not invent</h2>
           <p className="mt-4 leading-7 text-slate-700">
-            New World Kids will publish leadership roles, policies, program results, partnerships,
+            New World Kids publishes leadership roles, policies, program results, partnerships,
             and impact evidence only when those details are confirmed. Historical repository
-            material, former contact information, and unverified titles are not treated as current
+            material, former contact information, and outdated titles are not treated as current
             public facts.
           </p>
         </section>
